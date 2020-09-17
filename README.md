@@ -5,12 +5,12 @@ An android app to keep track of your next...
 *Places to visit
 *XX to YY, you name it !
 
-##Screenshots
+## Screenshots
 ...coming soon
 
 
-##Developed using
+## Developed using
 
 
-##Developed by
+## Developed by
 Fabien Stritt
