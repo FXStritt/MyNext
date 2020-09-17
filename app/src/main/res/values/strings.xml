@@ -9,4 +9,9 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="dummytext_categorycard_title">Books</string>
+    <string name="dummytext_categorycard_number">10</string>
+    <string name="dummytext_categorycard_todo">to read</string>
+    <string name="dummytext_categorycard_numdone">3 read this month.</string>
+    <string name="dummytext_categorycard_var">+33%</string>
 </resources>
