@@ -10,7 +10,3 @@ An android app to keep track of your next...
 
 
 ## Developed using
-
-
-## Developed by
-Fabien Stritt
