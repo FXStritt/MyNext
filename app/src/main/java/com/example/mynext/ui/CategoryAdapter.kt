@@ -1,11 +1,13 @@
-package com.example.mynext
+package com.example.mynext.ui
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mynext.CellClickListener
+import com.example.mynext.R
 
-class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
+class CategoryAdapter (private val cellClickListener: CellClickListener) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
     class CategoryViewHolder (card: View) : RecyclerView.ViewHolder(card)
 
@@ -15,6 +17,10 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
+        holder.itemView.setOnClickListener {
+            cellClickListener.onCellClickListener()
+        }
+
         // TODO retrieve category values based on position and modifie UI elements
     }
 
