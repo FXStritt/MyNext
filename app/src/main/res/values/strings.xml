@@ -1,17 +1,25 @@
 <resources>
     <string name="app_name">My Next</string>
     <string name="action_settings">Settings</string>
+
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="categories_fragment_label">Categories Fragment</string>
+    <string name="item_fragment_label">Item Fragment</string>
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <!--    Dummy text strings   -->
     <string name="dummytext_categorycard_title">Books</string>
     <string name="dummytext_categorycard_number">10</string>
     <string name="dummytext_categorycard_todo">to read</string>
     <string name="dummytext_categorycard_numdone">3 read this month.</string>
     <string name="dummytext_categorycard_var">+33%</string>
+    <string name="dummytext_items_title">Books to read</string>
+    <string name="dummytext_itemcard_title">The year of the flood</string>
+    <string name="dummytext_itemcard_description">Second book of the maddaddam trilogy, written by Margaret Atwood</string>
+    <string name="dummytext_itemcard_reco">Recommended by: Jean</string>
+
+    <!--    Content descriptions -->
+    <string name="contentdescr_itemcard_image">illustration image</string>
 </resources>

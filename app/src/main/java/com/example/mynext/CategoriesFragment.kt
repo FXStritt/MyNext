@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.fragment_first.*
 
@@ -24,7 +25,5 @@ class CategoriesFragment : Fragment() {
             layoutManager = GridLayoutManager(activity,2, GridLayoutManager.VERTICAL, false)
             adapter = CategoryAdapter()
         }
-
-
     }
 }

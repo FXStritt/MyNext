@@ -32,7 +32,7 @@
             android:textColor="@color/colorAccent"
             android:textStyle="bold"/>
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/categorycard_todo_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,14 +40,14 @@
             android:text="@string/dummytext_categorycard_todo"
             android:textSize="20sp"/>
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/categorycard_numberdone_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/dummytext_categorycard_numdone"/>
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/categorycard_variationdone_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
