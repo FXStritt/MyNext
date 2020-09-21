@@ -13,12 +13,19 @@ class DummyDataProvider(val context: Context?) {
         return listOf(
             Category("Books"),
             Category("Movies"),
-            Category("Places"),
-            Category("Recipes")
+            Category("Places")
         )
     }
 
-    fun getDummyBooks(): List<Item> {
+    fun getDummyItemFromCategory(category: Category) : List<Item> {
+        return when (category.title) {
+            "Books" -> getDummyBooks()
+            "Movies" -> getDummyMovies()
+            else -> getDummyPlaces()
+        }
+    }
+
+    private fun getDummyBooks(): List<Item> {
         val booksCategory = Category("Books")
         return listOf(
             Item(
@@ -53,7 +60,7 @@ class DummyDataProvider(val context: Context?) {
         )
     }
 
-    fun getDummyMovies(): List<Item> {
+    private fun getDummyMovies(): List<Item> {
         val moviesCategory = Category("Movies")
         return listOf(
             Item(
@@ -80,7 +87,7 @@ class DummyDataProvider(val context: Context?) {
         )
     }
 
-    fun getDummyPlaces(): List<Item> {
+    private fun getDummyPlaces(): List<Item> {
         val placesCategory = Category("Places")
         return listOf(
             Item(
@@ -108,7 +115,7 @@ class DummyDataProvider(val context: Context?) {
         )
     }
 
-    fun getDummyBitmap(category: Category): Bitmap {
+    private fun getDummyBitmap(category: Category): Bitmap {
         return when (category.title) {
             "Books" -> BitmapFactory.decodeResource(context?.resources, R.drawable.book)
             "Movies" -> BitmapFactory.decodeResource(context?.resources, R.drawable.movies)

@@ -4,14 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mynext.CellClickListener
+import com.example.mynext.CategoryClickListener
 import com.example.mynext.R
 import com.example.mynext.model.Category
 import kotlinx.android.synthetic.main.category_card.view.*
 
 class CategoryAdapter(
     private val categories: List<Category>,
-    private val cellClickListener: CellClickListener
+    private val categoryClickListener: CategoryClickListener,
 ) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
     class CategoryViewHolder(val card: View) : RecyclerView.ViewHolder(card)
@@ -24,7 +24,7 @@ class CategoryAdapter(
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         holder.itemView.setOnClickListener {
-            cellClickListener.onCellClickListener()
+            categoryClickListener.onCategoryClickListener(categories[position])
         }
 
         val category = categories[position]
