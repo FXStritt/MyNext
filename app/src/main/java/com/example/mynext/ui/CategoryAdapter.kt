@@ -4,28 +4,35 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mynext.CellClickListener
+import com.example.mynext.CategoryClickListener
 import com.example.mynext.R
+import com.example.mynext.model.Category
+import kotlinx.android.synthetic.main.category_card.view.*
 
-class CategoryAdapter (private val cellClickListener: CellClickListener) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
+class CategoryAdapter(
+    private val categories: List<Category>,
+    private val categoryClickListener: CategoryClickListener,
+) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
-    class CategoryViewHolder (card: View) : RecyclerView.ViewHolder(card)
+    class CategoryViewHolder(val card: View) : RecyclerView.ViewHolder(card)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.category_card, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.category_card, parent, false)
         return CategoryViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         holder.itemView.setOnClickListener {
-            cellClickListener.onCellClickListener()
+            categoryClickListener.onCategoryClickListener(categories[position])
         }
 
-        // TODO retrieve category values based on position and modifie UI elements
+        val category = categories[position]
+        holder.card.categorycard_title_tv.text = category.title
     }
 
     override fun getItemCount(): Int {
-        return 15 //dummy value until list of categories implemented
+        return categories.size //dummy value until list of categories implemented
     }
 
 
