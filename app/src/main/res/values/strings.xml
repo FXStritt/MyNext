@@ -24,8 +24,10 @@
 
     <!--    Other Strings-->
     <string name="new_category">New Category</string>
-    <string name="new_item">New Item</string>
-    <string name="newitem_title">Title</string>
-    <string name="newitem_description">Description</string>
-    <string name="newitem_recommended_by">Recommended by</string>
+    <string name="new_item_title">New %1$s</string>
+    <string name="newitem_hint_title">Title</string>
+    <string name="newitem_hint_description">Description</string>
+    <string name="newitem_hint_recommended_by">Recommended by</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
 </resources>

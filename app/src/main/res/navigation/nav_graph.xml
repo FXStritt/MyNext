@@ -9,7 +9,7 @@
         android:id="@+id/CategoriesFragment"
         android:name="com.example.mynext.CategoriesFragment"
         android:label="@string/categories_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_category">
 
         <action
             android:id="@+id/action_CategoriesFragment_to_ItemsFragment"
@@ -20,7 +20,7 @@
         android:id="@+id/ItemsFragment"
         android:name="com.example.mynext.ItemsFragment"
         android:label="@string/item_fragment_label"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/fragment_items">
 
         <action
             android:id="@+id/action_ItemsFragment_to_CategoriesFragment"

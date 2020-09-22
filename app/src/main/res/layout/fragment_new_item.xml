@@ -8,10 +8,11 @@
     android:padding="2dp">
 
     <TextView
+        android:id="@+id/createitem_maintitle_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/new_item"
+        android:text="@string/new_item_title"
         android:textSize="30sp"/>
 
     <RelativeLayout
@@ -38,19 +39,40 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textCapSentences"
-        android:hint="@string/newitem_title"/>
+        android:hint="@string/newitem_hint_title"/>
 
     <com.google.android.material.textfield.TextInputEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxLines="5"
         android:inputType="textCapSentences"
-        android:hint="@string/newitem_description"/>
+        android:hint="@string/newitem_hint_description"/>
 
     <com.google.android.material.textfield.TextInputEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textCapWords"
-        android:hint="@string/newitem_recommended_by"/>
+        android:hint="@string/newitem_hint_recommended_by"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="20dp">
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:text="@string/cancel"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="@string/save"/>
+
+    </LinearLayout>
 
 </LinearLayout>
