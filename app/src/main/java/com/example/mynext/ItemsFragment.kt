@@ -36,6 +36,7 @@ class ItemsFragment : Fragment(), ItemClickListener {
                 adapter = itemAdapter
             }
 
+            items_categorytitle_tv.text = category.title
         })
     }
 

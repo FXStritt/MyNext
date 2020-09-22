@@ -9,8 +9,9 @@ import com.example.mynext.model.Item
 
 class DummyDataProvider(val context: Context?) {
 
-    fun getDummyCategories(): List<Category> {
-        return listOf(
+    fun getDummyCategories(): MutableList<Category> {
+
+        return mutableListOf(
             Category("Books"),
             Category("Movies"),
             Category("Places")

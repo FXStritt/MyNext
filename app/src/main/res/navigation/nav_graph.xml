@@ -15,6 +15,7 @@
             android:id="@+id/action_CategoriesFragment_to_ItemsFragment"
             app:destination="@id/ItemsFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/ItemsFragment"
         android:name="com.example.mynext.ItemsFragment"
@@ -24,5 +25,15 @@
         <action
             android:id="@+id/action_ItemsFragment_to_CategoriesFragment"
             app:destination="@id/CategoriesFragment" />
+        <action
+            android:id="@+id/action_ItemsFragment_to_NewItemsFragment"
+            app:destination="@id/NewItemsFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/NewItemsFragment"
+        android:name="com.example.mynext.NewItemFragment"
+        android:label="@string/new_item_fragment_label"
+        tools:layout="@layout/fragment_new_item"/>
+
 </navigation>
