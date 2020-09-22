@@ -34,6 +34,12 @@
         android:id="@+id/NewItemsFragment"
         android:name="com.example.mynext.NewItemFragment"
         android:label="@string/new_item_fragment_label"
-        tools:layout="@layout/fragment_new_item"/>
+        tools:layout="@layout/fragment_new_item">
+
+        <action
+            android:id="@+id/action_NewItemsFragment_to_ItemsFragment"
+            app:destination="@id/ItemsFragment" />
+
+    </fragment>
 
 </navigation>

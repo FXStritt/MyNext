@@ -21,12 +21,14 @@
         android:layout_gravity="center_horizontal">
 
         <ImageView
+            android:id="@+id/createitem_image_iv"
             android:layout_width="128dp"
             android:layout_height="128dp"
             android:src="@drawable/book"
             android:contentDescription="@string/contentdescr_itemcard_image"/>
 
         <ImageView
+            android:id="@+id/createitem_chooseimage_iv"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/ic_baseline_camera_alt_24"
@@ -36,12 +38,14 @@
     </RelativeLayout>
 
     <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/createitem_title_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textCapSentences"
         android:hint="@string/newitem_hint_title"/>
 
     <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/createitem_description_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxLines="5"
@@ -49,6 +53,7 @@
         android:hint="@string/newitem_hint_description"/>
 
     <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/createitem_recommender_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textCapWords"
@@ -62,12 +67,14 @@
         android:layout_marginTop="20dp">
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/createitem_cancel_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:text="@string/cancel"/>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/createitem_save_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
