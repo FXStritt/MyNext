@@ -5,9 +5,7 @@
     <!-- Strings used for fragments for navigation -->
     <string name="categories_fragment_label">Categories Fragment</string>
     <string name="item_fragment_label">Item Fragment</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="new_item_fragment_label">New Item Fragment</string>
 
     <!--    Dummy text strings   -->
     <string name="dummytext_categorycard_title">Books</string>
@@ -22,4 +20,21 @@
 
     <!--    Content descriptions -->
     <string name="contentdescr_itemcard_image">illustration image</string>
+    <string name="content_descr_itemcard_selectimage">Select illustration image</string>
+
+    <!--    Other Strings-->
+    <string name="new_item_title">New %1$s</string>
+    <string name="newitem_hint_title">Title</string>
+    <string name="newitem_hint_description">Description</string>
+    <string name="newitem_hint_recommended_by">Recommended by</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="new_category">New Category</string>
+    <string name="choose_default_image">Choose the default image for items in your category</string>
+    <string name="category_name">Category name (e.g Books)</string>
+    <string name="items_name">Items name (e.g Book)</string>
+    <string name="categ_action">Action (e.g read)</string>
+    <string name="new_category_fragment_label">NewCategoryFragment</string>
 </resources>

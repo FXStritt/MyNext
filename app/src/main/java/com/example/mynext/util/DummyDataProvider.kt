@@ -9,15 +9,16 @@ import com.example.mynext.model.Item
 
 class DummyDataProvider(val context: Context?) {
 
-    fun getDummyCategories(): List<Category> {
-        return listOf(
-            Category("Books"),
-            Category("Movies"),
-            Category("Places")
+    fun getDummyCategories(): MutableList<Category> {
+
+        return mutableListOf(
+            Category("Books","Book","Read"),
+            Category("Movies","Movie","Watch"),
+            Category("Places","Place","Visit")
         )
     }
 
-    fun getDummyItemFromCategory(category: Category) : List<Item> {
+    fun getDummyItemFromCategory(category: Category): List<Item> {
         return when (category.title) {
             "Books" -> getDummyBooks()
             "Movies" -> getDummyMovies()
@@ -26,7 +27,7 @@ class DummyDataProvider(val context: Context?) {
     }
 
     private fun getDummyBooks(): List<Item> {
-        val booksCategory = Category("Books")
+        val booksCategory = Category("Books","Book","Read")
         return listOf(
             Item(
                 "Clean Code",
@@ -61,7 +62,7 @@ class DummyDataProvider(val context: Context?) {
     }
 
     private fun getDummyMovies(): List<Item> {
-        val moviesCategory = Category("Movies")
+        val moviesCategory = Category("Movies","Movie","Watch")
         return listOf(
             Item(
                 "Tenet",
@@ -76,19 +77,21 @@ class DummyDataProvider(val context: Context?) {
                 "Some movie abour french submarines that this person I spoke to on the train recommended",
                 "Stranger",
                 getDummyBitmap(moviesCategory),
-                moviesCategory),
+                moviesCategory
+            ),
 
             Item(
                 "Stalker",
                 "Macha told me this was a must see russian move, by tarkovski",
                 "Macha",
                 getDummyBitmap(moviesCategory),
-                moviesCategory)
+                moviesCategory
+            )
         )
     }
 
     private fun getDummyPlaces(): List<Item> {
-        val placesCategory = Category("Places")
+        val placesCategory = Category("Places","Place","Visit")
         return listOf(
             Item(
                 "London",
@@ -115,8 +118,8 @@ class DummyDataProvider(val context: Context?) {
         )
     }
 
-    private fun getDummyBitmap(category: Category): Bitmap {
-        return when (category.title) {
+    fun getDummyBitmap(category: Category?): Bitmap {
+        return when (category?.title) {
             "Books" -> BitmapFactory.decodeResource(context?.resources, R.drawable.book)
             "Movies" -> BitmapFactory.decodeResource(context?.resources, R.drawable.movies)
             else -> BitmapFactory.decodeResource(context?.resources, R.drawable.places)
