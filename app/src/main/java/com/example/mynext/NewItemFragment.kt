@@ -36,7 +36,7 @@ class NewItemFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         selectedCategory.selected.observe(viewLifecycleOwner, { category ->
-            createitem_maintitle_tv.text = getString(R.string.new_item_title, category.title)
+            createitem_maintitle_tv.text = getString(R.string.new_item_title, category.itemsName)
         })
 
         createitem_chooseimage_iv.setOnClickListener {

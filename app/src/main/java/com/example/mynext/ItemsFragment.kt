@@ -40,7 +40,7 @@ class ItemsFragment : Fragment(), ItemClickListener {
             }
 
             items_categorytitle_tv.text = category.title
-            items_newitem_fab.text = getString(R.string.new_item_title, category.title)
+            items_newitem_fab.text = getString(R.string.new_item_title, category.itemsName)
         })
     }
 

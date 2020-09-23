@@ -42,6 +42,9 @@ class CategoryAdapter(
         if (getItemViewType(position) == TYPE_CATEGORY) {
             val category = categories[position]
             holder.card.categorycard_title_tv.text = category.title
+
+            val text = "to ${category.verb}"
+            holder.card.categorycard_todo_tv.text = text
         }
     }
 
