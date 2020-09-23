@@ -14,6 +14,11 @@
         <action
             android:id="@+id/action_CategoriesFragment_to_ItemsFragment"
             app:destination="@id/ItemsFragment" />
+
+        <action
+            android:id="@+id/action_CategoriesFragment_to_NewCategoryFragment"
+            app:destination="@id/NewCategoryFragment" />
+
     </fragment>
 
     <fragment
@@ -39,6 +44,18 @@
         <action
             android:id="@+id/action_NewItemsFragment_to_ItemsFragment"
             app:destination="@id/ItemsFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/NewCategoryFragment"
+        android:name="com.example.mynext.NewCategoryFragment"
+        android:label="@string/new_category_fragment_label"
+        tools:layout="@layout/fragment_new_category">
+
+        <action
+            android:id="@+id/action_NewCategoryFragment_to_CategoriesFragment"
+            app:destination="@id/CategoriesFragment" />
 
     </fragment>
 

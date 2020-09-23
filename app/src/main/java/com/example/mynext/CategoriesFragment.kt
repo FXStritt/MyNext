@@ -39,7 +39,11 @@ class CategoriesFragment : Fragment(), CategoryClickListener {
     override fun onCategoryClickListener(category: Category) {
         selectedCategory.select(category)
 
-        findNavController().navigate(R.id.action_CategoriesFragment_to_ItemsFragment)
+        if (category.title == CategoryAdapter.ADD_CATEGORY) {
+            findNavController().navigate(R.id.action_CategoriesFragment_to_NewCategoryFragment)
+        } else {
+            findNavController().navigate(R.id.action_CategoriesFragment_to_ItemsFragment)
+        }
     }
 }
 

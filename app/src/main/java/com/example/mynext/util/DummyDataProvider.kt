@@ -12,9 +12,9 @@ class DummyDataProvider(val context: Context?) {
     fun getDummyCategories(): MutableList<Category> {
 
         return mutableListOf(
-            Category("Books"),
-            Category("Movies"),
-            Category("Places")
+            Category("Books","Book","Read"),
+            Category("Movies","Movie","Watch"),
+            Category("Places","Place","Visit")
         )
     }
 
@@ -27,7 +27,7 @@ class DummyDataProvider(val context: Context?) {
     }
 
     private fun getDummyBooks(): List<Item> {
-        val booksCategory = Category("Books")
+        val booksCategory = Category("Books","Book","Read")
         return listOf(
             Item(
                 "Clean Code",
@@ -62,7 +62,7 @@ class DummyDataProvider(val context: Context?) {
     }
 
     private fun getDummyMovies(): List<Item> {
-        val moviesCategory = Category("Movies")
+        val moviesCategory = Category("Movies","Movie","Watch")
         return listOf(
             Item(
                 "Tenet",
@@ -91,7 +91,7 @@ class DummyDataProvider(val context: Context?) {
     }
 
     private fun getDummyPlaces(): List<Item> {
-        val placesCategory = Category("Places")
+        val placesCategory = Category("Places","Place","Visit")
         return listOf(
             Item(
                 "London",

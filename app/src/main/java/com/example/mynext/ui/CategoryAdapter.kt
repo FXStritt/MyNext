@@ -17,11 +17,11 @@ class CategoryAdapter(
     companion object {
         private const val TYPE_CATEGORY = 1
         private const val TYPE_ADD = 2
-        private const val ADD_CATEGORY = "ADD_CATEGORY"
+        const val ADD_CATEGORY = "ADD_CATEGORY"
     }
 
     init { //adds a category used by getItemViewType() to have a layout that shows a "+ category" item
-        categories.add(Category(ADD_CATEGORY))
+        categories.add(Category(ADD_CATEGORY,"",""))
     }
 
 
