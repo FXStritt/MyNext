@@ -4,14 +4,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mynext.ItemClickListener
+import com.example.mynext.fragments.ItemClickListener
 import com.example.mynext.R
 import com.example.mynext.model.Item
 import kotlinx.android.synthetic.main.item_card.view.*
 
 class ItemAdapter(
     private val items: List<Item>,
-    private val itemClickListener: ItemClickListener) :
+    private val itemClickListener: ItemClickListener
+) :
     RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
     class ItemViewHolder(val card: View) : RecyclerView.ViewHolder(card)

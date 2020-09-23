@@ -1,4 +1,4 @@
-package com.example.mynext
+package com.example.mynext.fragments
 
 import android.app.Activity
 import android.content.Intent
@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.mynext.R
 import com.example.mynext.model.Category
 import com.example.mynext.util.DummyDataProvider
 import com.example.mynext.util.ImageRetriever

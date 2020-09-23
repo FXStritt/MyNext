@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mynext.CategoryClickListener
+import com.example.mynext.fragments.CategoryClickListener
 import com.example.mynext.R
 import com.example.mynext.model.Category
 import kotlinx.android.synthetic.main.category_card.view.*

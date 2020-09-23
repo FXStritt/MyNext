@@ -1,4 +1,4 @@
-package com.example.mynext
+package com.example.mynext.fragments
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.mynext.R
 import com.example.mynext.model.Category
 import com.example.mynext.model.CategoryViewModel
 import com.example.mynext.model.Item
