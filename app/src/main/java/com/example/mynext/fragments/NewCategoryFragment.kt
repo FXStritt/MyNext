@@ -9,7 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.mynext.R
+import com.example.mynext.model.CategoriesViewModel
 import com.example.mynext.model.Category
 import com.example.mynext.util.DummyDataProvider
 import com.example.mynext.util.ImageRetriever
@@ -20,6 +22,7 @@ class NewCategoryFragment : Fragment() {
 
     private var chosenImage: Bitmap? = null
 
+    private lateinit var categoryViewModel: CategoriesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +35,8 @@ class NewCategoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        categoryViewModel = ViewModelProvider(this).get(CategoriesViewModel::class.java)
+
         createcateg_chooseimage_iv.setOnClickListener {
             startActivityForResult(ImageRetriever.getImageIntent(), ImageRetriever.CHOOSE_IMAGE_REQUEST_CODE)
         }
@@ -39,6 +44,8 @@ class NewCategoryFragment : Fragment() {
         createcateg_save_btn.setOnClickListener {
             if (allFieldsValid()) { //TODO Add fields validation in allFieldsValid() method
                 val newCategory = createCategoryFromFields()
+
+                categoryViewModel.insert(newCategory)
 
                 Log.d("MYTAG", newCategory.toString())
             }

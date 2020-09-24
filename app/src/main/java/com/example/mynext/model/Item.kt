@@ -12,7 +12,7 @@ data class Item (@ColumnInfo val title: String,
                  @ColumnInfo val description: String,
                  @ColumnInfo val recommender: String,
                  @ColumnInfo val image: Bitmap,
-                 @ColumnInfo val category: String,
+                 @ColumnInfo val categoryId: String,
                  @ColumnInfo val dateCreated: Date = Date()
 ) {
     @PrimaryKey(autoGenerate = true) var id: Int = 0

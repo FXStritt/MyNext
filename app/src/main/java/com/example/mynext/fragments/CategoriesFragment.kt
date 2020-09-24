@@ -6,19 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.mynext.R
+import com.example.mynext.model.CategoriesViewModel
 import com.example.mynext.model.Category
 import com.example.mynext.model.CategoryViewModel
 import com.example.mynext.ui.CategoryAdapter
 import com.example.mynext.util.DummyDataProvider
 import kotlinx.android.synthetic.main.fragment_category.*
 
-
+//TODO - on first load, if no DB detected, create dummy categories
 class CategoriesFragment : Fragment(), CategoryClickListener {
 
     private val selectedCategory: CategoryViewModel by activityViewModels()
+    private lateinit var categoryViewModel: CategoriesViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -29,6 +32,11 @@ class CategoriesFragment : Fragment(), CategoryClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         val categoryAdapter = CategoryAdapter(DummyDataProvider(context).getDummyCategories(),this)
+
+        categoryViewModel = ViewModelProvider(this).get(CategoriesViewModel::class.java)
+        categoryViewModel.allCategories.observe(viewLifecycleOwner) {
+            categoryAdapter.setCategories(it)
+        }
 
         categories_recyclerview.apply {
             setHasFixedSize(true)

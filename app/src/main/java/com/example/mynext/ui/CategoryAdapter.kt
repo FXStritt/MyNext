@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mynext.fragments.CategoryClickListener
 import com.example.mynext.R
+import com.example.mynext.fragments.CategoryClickListener
 import com.example.mynext.model.Category
 import kotlinx.android.synthetic.main.category_card.view.*
 
 class CategoryAdapter(
-    private val categories: MutableList<Category>,
+    private var categories: MutableList<Category>,
     private val categoryClickListener: CategoryClickListener,
 ) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
@@ -21,9 +21,8 @@ class CategoryAdapter(
     }
 
     init { //adds a category used by getItemViewType() to have a layout that shows a "+ category" item
-        categories.add(Category(ADD_CATEGORY,"",""))
+        categories.add(getNewAddCategory())
     }
-
 
     class CategoryViewHolder(val card: View) : RecyclerView.ViewHolder(card)
 
@@ -58,5 +57,14 @@ class CategoryAdapter(
         } else {
             TYPE_CATEGORY
         }
+    }
+
+    fun setCategories(newCategories: List<Category>) {
+        categories = newCategories.toMutableList()
+        categories.add(getNewAddCategory())
+    }
+
+    private fun getNewAddCategory() : Category {
+        return Category(ADD_CATEGORY,"","")
     }
 }
