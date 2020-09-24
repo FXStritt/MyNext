@@ -76,13 +76,14 @@ class NewItemFragment : Fragment() {
     private fun allFieldsValid(): Boolean = true
 
     private fun createItemFromFields() : Item {
-
         val title = createitem_title_et.text.toString().trim()
         val description = createitem_description_et.text.toString().trim()
         val recommender = createitem_recommender_et.text.toString().trim()
         val category = selectedCategory.selected.value ?: Category("Books","Book","Read") //Dummy category in case of null
         val finalImage = chosenImage ?: DummyDataProvider(context).getDummyBitmap(category) //Dummy bitmap in case of no images chosen
 
-        return Item(title, description, recommender, finalImage, category, Date())
+        //TODO compress image upon item creation
+
+        return Item(title, description, recommender, finalImage, category.title, Date())
     }
 }

@@ -4,13 +4,14 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.example.mynext.model.Category
 import com.example.mynext.model.Item
 import com.example.mynext.util.RoomHelper
 
-@Database(entities = arrayOf(Category::class, Item::class), version = 1, exportSchema = false)
-//TODO consider implementing database migration
-public abstract class MainRoomDB : RoomDatabase() {
+@Database(entities = arrayOf(Category::class, Item::class), version = 1, exportSchema = false) //TODO consider implementing database migration
+@TypeConverters(TypeConverter::class)
+abstract class MainRoomDB : RoomDatabase() {
 
     abstract fun dao(): Dao
 

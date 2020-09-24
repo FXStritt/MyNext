@@ -12,8 +12,8 @@ data class Item (@ColumnInfo val title: String,
                  @ColumnInfo val description: String,
                  @ColumnInfo val recommender: String,
                  @ColumnInfo val image: Bitmap,
-                 @ColumnInfo val category: Category,
+                 @ColumnInfo val category: String,
                  @ColumnInfo val dateCreated: Date = Date()
-){
-    @PrimaryKey(autoGenerate = true) val id: Int = 0
+) {
+    @PrimaryKey(autoGenerate = true) var id: Int = 0
 }

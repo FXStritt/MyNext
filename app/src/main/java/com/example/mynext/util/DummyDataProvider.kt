@@ -34,28 +34,28 @@ class DummyDataProvider(val context: Context?) {
                 "Book with rules to follow in order to write clean, scalable and testable code",
                 "Oswaldo",
                 getDummyBitmap(booksCategory),
-                booksCategory
+                booksCategory.title
             ),
             Item(
                 "Sfumato",
                 "Not sure what this book is about, something related to art and what the meaning of life is",
                 "Sacha",
                 getDummyBitmap(booksCategory),
-                booksCategory
+                booksCategory.title
             ),
             Item(
                 "Oryx and Crake",
                 "One of the best read of the 21st century... apparently",
                 "bestbooks.com",
                 getDummyBitmap(booksCategory),
-                booksCategory
+                booksCategory.title
             ),
             Item(
                 "Out of the head and into the heart",
                 "Motivational book that I found in the stoss hotel I stayed at.",
                 "Stoss",
                 getDummyBitmap(booksCategory),
-                booksCategory
+                booksCategory.title
             )
 
         )
@@ -69,7 +69,7 @@ class DummyDataProvider(val context: Context?) {
                 "New christoher Nolan movie",
                 "NA",
                 getDummyBitmap(moviesCategory),
-                moviesCategory
+                moviesCategory.title
             ),
 
             Item(
@@ -77,7 +77,7 @@ class DummyDataProvider(val context: Context?) {
                 "Some movie abour french submarines that this person I spoke to on the train recommended",
                 "Stranger",
                 getDummyBitmap(moviesCategory),
-                moviesCategory
+                moviesCategory.title
             ),
 
             Item(
@@ -85,7 +85,7 @@ class DummyDataProvider(val context: Context?) {
                 "Macha told me this was a must see russian move, by tarkovski",
                 "Macha",
                 getDummyBitmap(moviesCategory),
-                moviesCategory
+                moviesCategory.title
             )
         )
     }
@@ -98,21 +98,21 @@ class DummyDataProvider(val context: Context?) {
                 "I always wanted to go to London",
                 "Myself",
                 getDummyBitmap(placesCategory),
-                placesCategory
+                placesCategory.title
             ),
             Item(
                 "Back&Buc Creperie",
                 "I was told they do really good food for quite cheap",
                 "John",
                 getDummyBitmap(placesCategory),
-                placesCategory
+                placesCategory.title
             ),
             Item(
                 "Pripyat",
                 "Man, there are some creepy stories about this place. Would be cool to visit",
                 "Dark Tourist",
                 getDummyBitmap(placesCategory),
-                placesCategory
+                placesCategory.title
             )
 
         )
