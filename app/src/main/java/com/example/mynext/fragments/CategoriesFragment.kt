@@ -1,6 +1,7 @@
 package com.example.mynext.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +15,6 @@ import com.example.mynext.model.CategoriesViewModel
 import com.example.mynext.model.Category
 import com.example.mynext.model.CategoryViewModel
 import com.example.mynext.ui.CategoryAdapter
-import com.example.mynext.util.DummyDataProvider
 import kotlinx.android.synthetic.main.fragment_category.*
 
 //TODO - on first load, if no DB detected, create dummy categories
@@ -25,17 +25,25 @@ class CategoriesFragment : Fragment(), CategoryClickListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
+        categoryViewModel = ViewModelProvider(this).get(CategoriesViewModel::class.java)
+
         return inflater.inflate(R.layout.fragment_category, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val categoryAdapter = CategoryAdapter(DummyDataProvider(context).getDummyCategories(),this)
+        val categoryAdapter = CategoryAdapter(this)
 
-        categoryViewModel = ViewModelProvider(this).get(CategoriesViewModel::class.java)
+        val currentCategories = categoryViewModel.allCategories.value
+        if (currentCategories != null) {
+            categoryAdapter.setCategories(currentCategories)
+        }
+
         categoryViewModel.allCategories.observe(viewLifecycleOwner) {
             categoryAdapter.setCategories(it)
+
+            Log.d("MYTAG","Loaded ${it.size} categories")
         }
 
         categories_recyclerview.apply {

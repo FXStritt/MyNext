@@ -1,6 +1,7 @@
 package com.example.mynext.fragments
 
 import android.app.Activity
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
@@ -8,8 +9,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.mynext.R
 import com.example.mynext.model.CategoriesViewModel
 import com.example.mynext.model.Category
@@ -41,6 +44,10 @@ class NewCategoryFragment : Fragment() {
             startActivityForResult(ImageRetriever.getImageIntent(), ImageRetriever.CHOOSE_IMAGE_REQUEST_CODE)
         }
 
+        createcateg_cancel_btn.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
         createcateg_save_btn.setOnClickListener {
             if (allFieldsValid()) { //TODO Add fields validation in allFieldsValid() method
                 val newCategory = createCategoryFromFields()
@@ -48,6 +55,12 @@ class NewCategoryFragment : Fragment() {
                 categoryViewModel.insert(newCategory)
 
                 Log.d("MYTAG", newCategory.toString())
+
+                view.let {//hide keyboard after category inserted
+                    val imm = context?.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(it.windowToken, 0)
+                }
+                findNavController().navigateUp()
             }
         }
     }

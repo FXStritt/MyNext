@@ -10,9 +10,11 @@ import com.example.mynext.model.Category
 import kotlinx.android.synthetic.main.category_card.view.*
 
 class CategoryAdapter(
-    private var categories: MutableList<Category>,
     private val categoryClickListener: CategoryClickListener,
 ) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
+
+
+    private var categories: MutableList<Category> = mutableListOf()
 
     companion object {
         private const val TYPE_CATEGORY = 1
@@ -62,6 +64,7 @@ class CategoryAdapter(
     fun setCategories(newCategories: List<Category>) {
         categories = newCategories.toMutableList()
         categories.add(getNewAddCategory())
+        notifyDataSetChanged()
     }
 
     private fun getNewAddCategory() : Category {
