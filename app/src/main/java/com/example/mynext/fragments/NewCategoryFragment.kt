@@ -15,7 +15,8 @@ import com.example.mynext.R
 import com.example.mynext.model.CategoriesViewModel
 import com.example.mynext.model.Category
 import com.example.mynext.util.ContextHelper
-import com.example.mynext.util.ImageRetriever
+import com.example.mynext.util.DummyDataProvider
+import com.example.mynext.util.ImageHelper
 import kotlinx.android.synthetic.main.fragment_new_category.*
 
 
@@ -44,7 +45,7 @@ class NewCategoryFragment : Fragment() {
         }
 
         createcateg_chooseimage_iv.setOnClickListener {
-            startActivityForResult(ImageRetriever.getImageIntent(), ImageRetriever.CHOOSE_IMAGE_REQUEST_CODE)
+            startActivityForResult(ImageHelper.getImageIntent(), ImageHelper.CHOOSE_IMAGE_REQUEST_CODE)
         }
 
         createcateg_cancel_btn.setOnClickListener {
@@ -52,12 +53,13 @@ class NewCategoryFragment : Fragment() {
         }
 
         createcateg_save_btn.setOnClickListener {
-            if (allFieldsValid() && categoryDoesNotExist()) { //TODO verify that category name does not exist yet.
+            if (allFieldsValid() && categoryDoesNotExist()) {
                 createcateg_errortext_tv.text = "" //Remove any error messages
 
                 val newCategory = createCategoryFromFields()
+                val finalImage = chosenImage ?: DummyDataProvider(context).getDummyBitmap("Books") //Dummy bitmap in case of no images chosen
 
-                categoryViewModel.insert(newCategory)
+                categoryViewModel.insert(newCategory, finalImage) //TODO insert error should trigger deletion of image saved on Filesystem
 
                 ContextHelper.hideSoftKeyboard(view,context)
 
@@ -84,10 +86,10 @@ class NewCategoryFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == ImageRetriever.CHOOSE_IMAGE_REQUEST_CODE && resultCode == Activity.RESULT_OK
+        if (requestCode == ImageHelper.CHOOSE_IMAGE_REQUEST_CODE && resultCode == Activity.RESULT_OK
         ) {
             val uri = data?.data ?: return
-            val bitmap = ImageRetriever.getBitmapFromUri(uri, requireActivity())
+            val bitmap = ImageHelper.getBitmapFromUri(uri, requireActivity())
 
             bitmap.let {
                 createcateg_image_iv.setImageBitmap(bitmap)
@@ -112,10 +114,11 @@ class NewCategoryFragment : Fragment() {
         val name = createcateg_categname_et.text.toString().trim()
         val itemsName = createcateg_itemsname_et.text.toString().trim()
         val verb = createcateg_verb_et.text.toString().trim()
-//        val finalImage = chosenImage ?: DummyDataProvider(context).getDummyBitmap("Books") //Dummy bitmap in case of no images chosen
+        val imageName = name + itemsName + verb
 
-        return Category(name, itemsName, verb)
+        return Category(name, itemsName, verb, imageName)
     }
+
 
     private fun showErrorMessage() {
 

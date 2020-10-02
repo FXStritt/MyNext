@@ -54,8 +54,8 @@ class CategoriesFragment : Fragment(), CategoryClickListener {
     }
 
     private fun addDummyCategories() {
-        for (category in DummyDataProvider(context).getDummyCategories()) {
-            categoriesViewModel.insert(category)
+        for (pair in DummyDataProvider(context).getDummyCategoriesWithBitmap()) {
+            categoriesViewModel.insert(pair.first, pair.second)
         }
     }
 

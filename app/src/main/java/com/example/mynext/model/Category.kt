@@ -6,9 +6,11 @@ import androidx.room.PrimaryKey
 import com.example.mynext.util.RoomHelper
 
 @Entity(tableName = RoomHelper.categoryTable)
-data class Category (@PrimaryKey @ColumnInfo val title: String,
-                     @ColumnInfo val itemsName: String,
-                     @ColumnInfo val verb: String,
+data class Category(
+    @PrimaryKey @ColumnInfo val title: String,
+    @ColumnInfo val itemsName: String,
+    @ColumnInfo val verb: String,
+    @ColumnInfo val imageName: String = ""
 //                     @ColumnInfo var defaultItemsImage: Bitmap? = null)
 )//TODO implement images for categories
 

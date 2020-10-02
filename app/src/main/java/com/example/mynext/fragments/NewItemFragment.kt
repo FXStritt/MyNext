@@ -17,7 +17,7 @@ import com.example.mynext.model.CategoryViewModel
 import com.example.mynext.model.Item
 import com.example.mynext.model.ItemsViewModel
 import com.example.mynext.util.ContextHelper
-import com.example.mynext.util.ImageRetriever
+import com.example.mynext.util.ImageHelper
 import kotlinx.android.synthetic.main.fragment_new_item.*
 import java.util.*
 
@@ -40,12 +40,14 @@ class NewItemFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //Set main title (New itemXYZ) and dummy image of category
         selectedCategory.selected.observe(viewLifecycleOwner, { category ->
             createitem_maintitle_tv.text = getString(R.string.new_item_title, category.itemsName)
+            createitem_image_iv.setImageBitmap(ImageHelper.retrieveBitmapFromFileSystem(requireContext(), category.imageName))
         })
 
         createitem_chooseimage_iv.setOnClickListener {
-            startActivityForResult(ImageRetriever.getImageIntent(), ImageRetriever.CHOOSE_IMAGE_REQUEST_CODE)
+            startActivityForResult(ImageHelper.getImageIntent(), ImageHelper.CHOOSE_IMAGE_REQUEST_CODE)
         }
 
         createitem_cancel_btn.setOnClickListener {
@@ -96,10 +98,10 @@ class NewItemFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == ImageRetriever.CHOOSE_IMAGE_REQUEST_CODE && resultCode == RESULT_OK
+        if (requestCode == ImageHelper.CHOOSE_IMAGE_REQUEST_CODE && resultCode == RESULT_OK
         ) {
             val uri = data?.data ?: return
-            val bitmap = ImageRetriever.getBitmapFromUri(uri, requireActivity())
+            val bitmap = ImageHelper.getBitmapFromUri(uri, requireActivity())
 
             bitmap.let {
                 createitem_image_iv.setImageBitmap(bitmap)
