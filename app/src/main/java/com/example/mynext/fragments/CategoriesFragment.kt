@@ -20,12 +20,11 @@ import kotlinx.android.synthetic.main.fragment_category.*
 //TODO - on first load, if no DB detected, create dummy categories
 class CategoriesFragment : Fragment(), CategoryClickListener {
 
-    private val selectedCategory: CategoryViewModel by activityViewModels()
-    private lateinit var categoryViewModel: CategoriesViewModel
+    private val selectedCategory: CategoryViewModel by activityViewModels() //TODO Consider moving to CategoriesViewModel
+    private lateinit var categoriesViewModel: CategoriesViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        categoryViewModel = ViewModelProvider(this).get(CategoriesViewModel::class.java)
+        categoriesViewModel = ViewModelProvider(this).get(CategoriesViewModel::class.java)
 
         return inflater.inflate(R.layout.fragment_category, container, false)
     }
@@ -35,17 +34,14 @@ class CategoriesFragment : Fragment(), CategoryClickListener {
 
         val categoryAdapter = CategoryAdapter(this)
 
-        val currentCategories = categoryViewModel.allCategories.value
-        if (currentCategories != null) {
-            categoryAdapter.setCategories(currentCategories)
-        }
-
-        categoryViewModel.allCategories.observe(viewLifecycleOwner) {
+        //Observe changes to our categoryViewModel and push to recyclerview adapter
+        categoriesViewModel.allCategories.observe(viewLifecycleOwner) {
             categoryAdapter.setCategories(it)
 
             Log.d("MYTAG","Loaded ${it.size} categories")
         }
 
+        //initialise recyclerview
         categories_recyclerview.apply {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(activity,2, GridLayoutManager.VERTICAL, false)

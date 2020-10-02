@@ -12,11 +12,19 @@ import com.example.mynext.util.RoomHelper
 @Dao
 interface Dao {
 
+   @Query("DELETE FROM ${RoomHelper.itemTable}" )
+   suspend fun deleteTableItem()
+   @Query("DELETE FROM ${RoomHelper.categoryTable}" )
+   suspend fun deleteTableCategories()
+
    @Query("SELECT * from ${RoomHelper.categoryTable}")
    fun getAllCategories(): LiveData<List<Category>>
 
    @Query("SELECT * from ${RoomHelper.itemTable}")
    fun getAllItems(): LiveData<List<Item>>
+
+//   @Query("SELECT * from ${RoomHelper.itemTable} WHERE categoryId = :categoryID")
+//   fun getItemsFromCategory(categoryID: String): LiveData<List<Item>>
 
    @Insert(onConflict = OnConflictStrategy.IGNORE)
    suspend fun insertCategory(category: Category)

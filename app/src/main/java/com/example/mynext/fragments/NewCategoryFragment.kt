@@ -87,7 +87,7 @@ class NewCategoryFragment : Fragment() {
         val name = createcateg_categname_et.text.toString().trim()
         val itemsName = createcateg_itemsname_et.text.toString().trim()
         val verb = createcateg_verb_et.text.toString().trim()
-        val finalImage = chosenImage ?: DummyDataProvider(context).getDummyBitmap(Category("Books","Book","Read")) //Dummy bitmap in case of no images chosen
+        val finalImage = chosenImage ?: DummyDataProvider(context).getDummyBitmap("Books") //Dummy bitmap in case of no images chosen
 
         return Category(name, itemsName, verb, finalImage)
     }

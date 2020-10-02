@@ -16,4 +16,10 @@ class MainRepository (private val dao: Dao) {
     suspend fun insert(item: Item) {
         dao.insertItem(item)
     }
+
+    suspend fun deleteAll() {
+        //Clean DB on app startup for debugging purposes
+        dao.deleteTableItem()
+        dao.deleteTableCategories()
+    }
 }
