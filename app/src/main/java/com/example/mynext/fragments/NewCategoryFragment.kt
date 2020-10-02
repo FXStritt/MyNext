@@ -1,21 +1,20 @@
 package com.example.mynext.fragments
 
 import android.app.Activity
-import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.mynext.R
 import com.example.mynext.model.CategoriesViewModel
 import com.example.mynext.model.Category
+import com.example.mynext.util.ContextHelper
 import com.example.mynext.util.DummyDataProvider
 import com.example.mynext.util.ImageRetriever
 import kotlinx.android.synthetic.main.fragment_new_category.*
@@ -49,18 +48,19 @@ class NewCategoryFragment : Fragment() {
         }
 
         createcateg_save_btn.setOnClickListener {
-            if (allFieldsValid()) { //TODO Add fields validation in allFieldsValid() method
+            if (allFieldsValid()) { //TODO verify that category name does not exist yet.
+                createcateg_errortext_tv.text = "" //Remove any error messages
+
                 val newCategory = createCategoryFromFields()
 
                 categoryViewModel.insert(newCategory)
 
-                Log.d("MYTAG", newCategory.toString())
+                ContextHelper.hideSoftKeyboard(view,context)
 
-                view.let {//hide keyboard after category inserted
-                    val imm = context?.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                    imm.hideSoftInputFromWindow(it.windowToken, 0)
-                }
                 findNavController().navigateUp()
+
+            } else {
+                showErrorMessage()
             }
         }
     }
@@ -80,7 +80,11 @@ class NewCategoryFragment : Fragment() {
         }
     }
 
-    private fun allFieldsValid(): Boolean = true
+    private fun allFieldsValid(): Boolean {
+        return (createcateg_categname_et.text.toString().trim().isNotEmpty()
+                && createcateg_itemsname_et.text.toString().trim().isNotEmpty()
+                && createcateg_verb_et.text.toString().trim().isNotEmpty())
+    }
 
     private fun createCategoryFromFields() : Category {
 
@@ -90,5 +94,16 @@ class NewCategoryFragment : Fragment() {
         val finalImage = chosenImage ?: DummyDataProvider(context).getDummyBitmap("Books") //Dummy bitmap in case of no images chosen
 
         return Category(name, itemsName, verb, finalImage)
+    }
+
+    private fun showErrorMessage() {
+
+        with(createcateg_errortext_tv) {
+            if (this.text.trim().isEmpty()) {
+                this.text = getString(R.string.newcateg_error_message, "category")
+            } else {
+                this.startAnimation(AnimationUtils.loadAnimation(context, R.anim.blink_error))
+            }
+        }
     }
 }

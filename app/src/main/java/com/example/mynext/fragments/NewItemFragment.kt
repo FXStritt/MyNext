@@ -1,15 +1,13 @@
 package com.example.mynext.fragments
 
 import android.app.Activity.RESULT_OK
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
@@ -18,7 +16,7 @@ import com.example.mynext.R
 import com.example.mynext.model.CategoryViewModel
 import com.example.mynext.model.Item
 import com.example.mynext.model.ItemsViewModel
-import com.example.mynext.util.DummyDataProvider
+import com.example.mynext.util.ContextHelper
 import com.example.mynext.util.ImageRetriever
 import kotlinx.android.synthetic.main.fragment_new_item.*
 import java.util.*
@@ -51,26 +49,46 @@ class NewItemFragment : Fragment() {
         }
 
         createitem_cancel_btn.setOnClickListener {
-            //TODO Modify navigation to clear fragment stack
-            findNavController().navigate(R.id.action_NewItemsFragment_to_ItemsFragment)
+            findNavController().navigateUp()
         }
 
         createitem_save_btn.setOnClickListener {
 
-            if (allFieldsValid() && selectedCategory.selected.value?.title != null) { //TODO Add fields validation in allFieldsValid() method
+            if (allFieldsValid() && categorySelected()) {
+                createitem_errortext_tv.text = "" //Clear any potential error messages
 
                 val newItem = createItemFromFields()
 
                 itemsViewModel.insert(newItem)
 
-                view.let {//hide keyboard after category inserted
-                    val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                    imm.hideSoftInputFromWindow(it.windowToken, 0)
-                }
+                ContextHelper.hideSoftKeyboard(view, context)
 
                 findNavController().navigateUp()
+            } else {
+                showErrorMessage()
+            }
+        }
+    }
 
-                Log.d("MYTAG", newItem.toString())
+    private fun allFieldsValid():Boolean {
+        return (createitem_title_et.text.toString().trim().isNotEmpty()
+                && createitem_description_et.text.toString().trim().isNotEmpty())
+    }
+
+    private fun categorySelected(): Boolean {
+        return selectedCategory.selected.value?.title != null
+    }
+
+    private fun showErrorMessage() {
+
+        with(createitem_errortext_tv) {
+            if (this.text.trim().isEmpty()) {
+                this.text = getString(R.string.newitem_error_message,
+                    selectedCategory.selected.value?.itemsName?.toLowerCase(Locale.ROOT)
+                )
+            } else {
+                this.startAnimation(AnimationUtils.loadAnimation(context,
+                    R.anim.blink_error))
             }
         }
     }
@@ -90,16 +108,13 @@ class NewItemFragment : Fragment() {
         }
     }
 
-    private fun allFieldsValid():Boolean = true
-
     private fun createItemFromFields() : Item {
         val title = createitem_title_et.text.toString().trim()
         val description = createitem_description_et.text.toString().trim()
         val recommender = createitem_recommender_et.text.toString().trim()
         val category = selectedCategory.selected.value?.title
 
-        val finalImage = chosenImage ?: DummyDataProvider(context).getDummyBitmap(category) //Dummy bitmap in case of no images chosen
-
+        //val finalImage = chosenImage ?: DummyDataProvider(context).getDummyBitmap(category) //Dummy bitmap in case of no images chosen
 
         //TODO compress image upon item creation
 

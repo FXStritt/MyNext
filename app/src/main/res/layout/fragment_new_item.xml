@@ -59,6 +59,13 @@
         android:inputType="textCapWords"
         android:hint="@string/newitem_hint_recommended_by"/>
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/createitem_errortext_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/colorError"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

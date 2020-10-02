@@ -22,19 +22,23 @@
     <string name="contentdescr_itemcard_image">illustration image</string>
     <string name="content_descr_itemcard_selectimage">Select illustration image</string>
 
-    <!--    Other Strings-->
+    <!--    Main Strings resources -->
     <string name="new_item_title">New %1$s</string>
     <string name="newitem_hint_title">Title</string>
     <string name="newitem_hint_description">Description</string>
     <string name="newitem_hint_recommended_by">Recommended by</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="new_category">New Category</string>
     <string name="choose_default_image">Choose the default image for items in your category</string>
     <string name="category_name">Category name (e.g Books)</string>
     <string name="items_name">Items name (e.g Book)</string>
     <string name="categ_action">Action (e.g read)</string>
     <string name="new_category_fragment_label">NewCategoryFragment</string>
+
+
+    <!--    Error messages-->
+    <string name="newcateg_error_message">Please fill in all fields to create a new %1$s</string>
+    <string name="newitem_error_message">Please fill in title and description to create a new %1$s</string>
+
 </resources>
