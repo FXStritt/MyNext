@@ -25,6 +25,8 @@ class NewCategoryFragment : Fragment() {
 
     private lateinit var categoryViewModel: CategoriesViewModel
 
+    private lateinit var allCategories: List<Category>
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,6 +39,9 @@ class NewCategoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         categoryViewModel = ViewModelProvider(this).get(CategoriesViewModel::class.java)
+        categoryViewModel.allCategories.observe(viewLifecycleOwner) {
+            allCategories = it
+        }
 
         createcateg_chooseimage_iv.setOnClickListener {
             startActivityForResult(ImageRetriever.getImageIntent(), ImageRetriever.CHOOSE_IMAGE_REQUEST_CODE)
@@ -47,7 +52,7 @@ class NewCategoryFragment : Fragment() {
         }
 
         createcateg_save_btn.setOnClickListener {
-            if (allFieldsValid()) { //TODO verify that category name does not exist yet.
+            if (allFieldsValid() && categoryDoesNotExist()) { //TODO verify that category name does not exist yet.
                 createcateg_errortext_tv.text = "" //Remove any error messages
 
                 val newCategory = createCategoryFromFields()
@@ -62,6 +67,18 @@ class NewCategoryFragment : Fragment() {
                 showErrorMessage()
             }
         }
+    }
+
+    private fun categoryDoesNotExist(): Boolean {
+
+        for (category in allCategories) {
+            if (category.title == createcateg_categname_et.text.toString().trim()) {
+                createcateg_errortext_tv.text = getString(R.string.newcateg_error_categexists)
+                return false
+            }
+        }
+
+        return true
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -80,9 +97,14 @@ class NewCategoryFragment : Fragment() {
     }
 
     private fun allFieldsValid(): Boolean {
-        return (createcateg_categname_et.text.toString().trim().isNotEmpty()
-                && createcateg_itemsname_et.text.toString().trim().isNotEmpty()
-                && createcateg_verb_et.text.toString().trim().isNotEmpty())
+        return if (createcateg_categname_et.text.toString().trim().isNotEmpty()
+            && createcateg_itemsname_et.text.toString().trim().isNotEmpty()
+            && createcateg_verb_et.text.toString().trim().isNotEmpty()) {
+            true
+        } else {
+            createcateg_errortext_tv.text = getString(R.string.newcateg_error_invalidfields, "category")
+            false
+        }
     }
 
     private fun createCategoryFromFields() : Category {
@@ -98,9 +120,7 @@ class NewCategoryFragment : Fragment() {
     private fun showErrorMessage() {
 
         with(createcateg_errortext_tv) {
-            if (this.text.trim().isEmpty()) {
-                this.text = getString(R.string.newcateg_error_message, "category")
-            } else {
+            if (this.text.trim().isNotEmpty()) {
                 this.startAnimation(AnimationUtils.loadAnimation(context, R.anim.blink_error))
             }
         }

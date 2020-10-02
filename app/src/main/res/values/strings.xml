@@ -38,7 +38,8 @@
 
 
     <!--    Error messages-->
-    <string name="newcateg_error_message">Please fill in all fields to create a new %1$s</string>
+    <string name="newcateg_error_invalidfields">Please fill in all fields to create a new %1$s</string>
+    <string name="newcateg_error_categexists">Category already exists</string>
     <string name="newitem_error_message">Please fill in title and description to create a new %1$s</string>
 
 </resources>
