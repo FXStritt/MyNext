@@ -15,9 +15,9 @@ import com.example.mynext.model.CategoriesViewModel
 import com.example.mynext.model.Category
 import com.example.mynext.model.CategoryViewModel
 import com.example.mynext.ui.CategoryAdapter
+import com.example.mynext.util.DummyDataProvider
 import kotlinx.android.synthetic.main.fragment_category.*
 
-//TODO - on first load, if no DB detected, create dummy categories
 class CategoriesFragment : Fragment(), CategoryClickListener {
 
     private val selectedCategory: CategoryViewModel by activityViewModels() //TODO Consider moving to CategoriesViewModel
@@ -39,6 +39,10 @@ class CategoriesFragment : Fragment(), CategoryClickListener {
             categoryAdapter.setCategories(it)
 
             Log.d("MYTAG","Loaded ${it.size} categories")
+
+            if (it.isEmpty()) {
+                addDummyCategories()
+            }
         }
 
         //initialise recyclerview
@@ -46,6 +50,12 @@ class CategoriesFragment : Fragment(), CategoryClickListener {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(activity,2, GridLayoutManager.VERTICAL, false)
             adapter = categoryAdapter
+        }
+    }
+
+    private fun addDummyCategories() {
+        for (category in DummyDataProvider(context).getDummyCategories()) {
+            categoriesViewModel.insert(category)
         }
     }
 

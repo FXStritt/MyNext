@@ -4,17 +4,18 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import com.example.mynext.R
+import com.example.mynext.model.Category
 
 class DummyDataProvider(val context: Context?) {
 //
-//    fun getDummyCategories(): MutableList<Category> {
-//
-//        return mutableListOf(
-//            Category("Books","Book","Read"),
-//            Category("Movies","Movie","Watch"),
-//            Category("Places","Place","Visit")
-//        )
-//    }
+    fun getDummyCategories(): MutableList<Category> {
+
+        return mutableListOf(
+            Category("Books","Book","Read"),
+            Category("Movies","Movie","Watch"),
+            Category("Places","Place","Visit")
+        )
+    }
 //
 //    fun getDummyItemFromCategory(category: Category): List<Item> {
 //        return when (category.title) {

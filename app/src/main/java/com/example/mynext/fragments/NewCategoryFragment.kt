@@ -15,7 +15,6 @@ import com.example.mynext.R
 import com.example.mynext.model.CategoriesViewModel
 import com.example.mynext.model.Category
 import com.example.mynext.util.ContextHelper
-import com.example.mynext.util.DummyDataProvider
 import com.example.mynext.util.ImageRetriever
 import kotlinx.android.synthetic.main.fragment_new_category.*
 
@@ -91,9 +90,9 @@ class NewCategoryFragment : Fragment() {
         val name = createcateg_categname_et.text.toString().trim()
         val itemsName = createcateg_itemsname_et.text.toString().trim()
         val verb = createcateg_verb_et.text.toString().trim()
-        val finalImage = chosenImage ?: DummyDataProvider(context).getDummyBitmap("Books") //Dummy bitmap in case of no images chosen
+//        val finalImage = chosenImage ?: DummyDataProvider(context).getDummyBitmap("Books") //Dummy bitmap in case of no images chosen
 
-        return Category(name, itemsName, verb, finalImage)
+        return Category(name, itemsName, verb)
     }
 
     private fun showErrorMessage() {

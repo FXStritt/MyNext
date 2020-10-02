@@ -1,6 +1,5 @@
 package com.example.mynext.model
 
-import android.graphics.Bitmap
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -10,7 +9,8 @@ import com.example.mynext.util.RoomHelper
 data class Category (@ColumnInfo val title: String,
                      @ColumnInfo val itemsName: String,
                      @ColumnInfo val verb: String,
-                     @ColumnInfo var defaultItemsImage: Bitmap? = null)
+//                     @ColumnInfo var defaultItemsImage: Bitmap? = null)
+)//TODO implement images for categories
 
 {
     @PrimaryKey(autoGenerate = true) var categoryId: Int = 0
