@@ -59,7 +59,7 @@ object ImageHelper {
 
     }
 
-    fun retrieveBitmapFromFileSystem(context: Context, filename: String): Bitmap? {
+    fun retrieveBitmapFromFileSystem(context: Context, filename: String): Bitmap {
         val cw = ContextWrapper(context)
         val directory = cw.getDir("imageDir", Context.MODE_PRIVATE)
         val file = File(directory, "$filename.png")

@@ -10,7 +10,7 @@ import java.util.*
 data class Item (@ColumnInfo val itemTitle: String,
                  @ColumnInfo val description: String,
                  @ColumnInfo val recommender: String,
-//                 @ColumnInfo val image: Bitmap, //TODO saving bitmap to db is causing problem in re-reading it. Save path instead
+                 @ColumnInfo val imageName: String,
                  @ColumnInfo val categoryId: String,
                  @ColumnInfo val dateCreated: Date = Date()
 ) {

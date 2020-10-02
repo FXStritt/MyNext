@@ -13,14 +13,14 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.mynext.R
 import com.example.mynext.model.CategoriesViewModel
 import com.example.mynext.model.Category
-import com.example.mynext.model.CategoryViewModel
+import com.example.mynext.model.SelectedCategoryViewModel
 import com.example.mynext.ui.CategoryAdapter
 import com.example.mynext.util.DummyDataProvider
 import kotlinx.android.synthetic.main.fragment_category.*
 
 class CategoriesFragment : Fragment(), CategoryClickListener {
 
-    private val selectedCategory: CategoryViewModel by activityViewModels() //TODO Consider moving to CategoriesViewModel
+    private val selectedCategory: SelectedCategoryViewModel by activityViewModels() //TODO Consider moving to CategoriesViewModel
     private lateinit var categoriesViewModel: CategoriesViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

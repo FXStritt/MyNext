@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mynext.R
 import com.example.mynext.fragments.ItemClickListener
 import com.example.mynext.model.Item
+import com.example.mynext.util.ImageHelper
 import kotlinx.android.synthetic.main.item_card.view.*
 
 class ItemAdapter(private val itemClickListener: ItemClickListener) :
@@ -27,10 +28,15 @@ class ItemAdapter(private val itemClickListener: ItemClickListener) :
         }
 
         val item = items[position]
-        holder.card.itemcard_title_tv.text = item.itemTitle
-        holder.card.itemcard_description_tv.text = item.description
-        holder.card.itemcard_recommendedby_tv.text = item.recommender
-//        holder.card.itemcard_image_iv.setImageBitmap(item.image)
+        with(holder.card) {
+            itemcard_title_tv.text = item.itemTitle
+            itemcard_description_tv.text = item.description
+            itemcard_recommendedby_tv.text = item.recommender
+
+            //TODO load images on separate thread for faster list loading
+            val bitmap = ImageHelper.retrieveBitmapFromFileSystem(context,item.imageName)
+            itemcard_image_iv.setImageBitmap(bitmap)
+        }
     }
 
     override fun getItemCount(): Int {

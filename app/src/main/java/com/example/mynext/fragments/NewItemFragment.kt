@@ -13,9 +13,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.mynext.R
-import com.example.mynext.model.CategoryViewModel
 import com.example.mynext.model.Item
 import com.example.mynext.model.ItemsViewModel
+import com.example.mynext.model.SelectedCategoryViewModel
 import com.example.mynext.util.ContextHelper
 import com.example.mynext.util.ImageHelper
 import kotlinx.android.synthetic.main.fragment_new_item.*
@@ -23,8 +23,8 @@ import java.util.*
 
 class NewItemFragment : Fragment() {
 
-    private val selectedCategory: CategoryViewModel by activityViewModels()
-    private var chosenImage: Bitmap? = null
+    private val selectedCategory: SelectedCategoryViewModel by activityViewModels()
+    private lateinit var chosenImage: Bitmap
     private lateinit var itemsViewModel: ItemsViewModel
 
     override fun onCreateView(
@@ -43,7 +43,8 @@ class NewItemFragment : Fragment() {
         //Set main title (New itemXYZ) and dummy image of category
         selectedCategory.selected.observe(viewLifecycleOwner, { category ->
             createitem_maintitle_tv.text = getString(R.string.new_item_title, category.itemsName)
-            createitem_image_iv.setImageBitmap(ImageHelper.retrieveBitmapFromFileSystem(requireContext(), category.imageName))
+            chosenImage = ImageHelper.retrieveBitmapFromFileSystem(requireContext(), category.imageName)
+            createitem_image_iv.setImageBitmap(chosenImage)
         })
 
         createitem_chooseimage_iv.setOnClickListener {
@@ -61,7 +62,7 @@ class NewItemFragment : Fragment() {
 
                 val newItem = createItemFromFields()
 
-                itemsViewModel.insert(newItem)
+                itemsViewModel.insert(newItem, chosenImage)
 
                 ContextHelper.hideSoftKeyboard(view, context)
 
@@ -105,7 +106,9 @@ class NewItemFragment : Fragment() {
 
             bitmap.let {
                 createitem_image_iv.setImageBitmap(bitmap)
-                chosenImage = bitmap
+                if (bitmap != null) {
+                    chosenImage = bitmap
+                }
             }
         }
     }
@@ -115,11 +118,8 @@ class NewItemFragment : Fragment() {
         val description = createitem_description_et.text.toString().trim()
         val recommender = createitem_recommender_et.text.toString().trim()
         val category = selectedCategory.selected.value?.title
+        val date = Date()
 
-        //val finalImage = chosenImage ?: DummyDataProvider(context).getDummyBitmap(category) //Dummy bitmap in case of no images chosen
-
-        //TODO compress image upon item creation
-
-        return Item(title, description, recommender, category ?: "NA", Date())
+        return Item(title, description, recommender,title + date.time , category ?: "NA", Date())
     }
 }

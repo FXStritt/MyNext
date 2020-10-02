@@ -9,7 +9,7 @@
 
     <!--    Dummy text strings   -->
     <string name="dummytext_categorycard_title">Books</string>
-    <string name="dummytext_categorycard_number">10</string>
+    <string name="dummytext_categorycard_number">0</string>
     <string name="dummytext_categorycard_todo">to %1$s</string>
     <string name="dummytext_categorycard_numdone">3 read this month.</string>
     <string name="dummytext_categorycard_var">+33%</string>

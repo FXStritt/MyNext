@@ -2,7 +2,6 @@ package com.example.mynext.model
 
 import android.app.Application
 import android.graphics.Bitmap
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
@@ -26,6 +25,5 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
     fun insert(category: Category, bitmap: Bitmap) = viewModelScope.launch (Dispatchers.IO) {
         repository.insert(category)
         ImageHelper.saveBitmapToFileSystem(getApplication(),category.imageName, bitmap)
-        Log.d("MYTAG","DAO acted on image named ${category.imageName}")
     }
 }

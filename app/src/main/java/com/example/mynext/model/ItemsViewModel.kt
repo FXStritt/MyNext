@@ -1,10 +1,12 @@
 package com.example.mynext.model
 
 import android.app.Application
+import android.graphics.Bitmap
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.example.mynext.data.MainRoomDB
+import com.example.mynext.util.ImageHelper
 import com.example.mynext.util.MainRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,8 +21,9 @@ class ItemsViewModel(application: Application) : AndroidViewModel(application) {
         allItems = repository.allItems
     }
 
-    fun insert(item: Item) = viewModelScope.launch (Dispatchers.IO) {
+    fun insert(item: Item, bitmap: Bitmap) = viewModelScope.launch (Dispatchers.IO) {
         repository.insert(item)
+        ImageHelper.saveBitmapToFileSystem(getApplication(),item.imageName, bitmap)
     }
 }
 

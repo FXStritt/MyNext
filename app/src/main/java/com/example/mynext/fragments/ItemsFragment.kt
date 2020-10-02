@@ -11,16 +11,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mynext.R
-import com.example.mynext.model.CategoryViewModel
 import com.example.mynext.model.Item
 import com.example.mynext.model.ItemsViewModel
+import com.example.mynext.model.SelectedCategoryViewModel
 import com.example.mynext.ui.ItemAdapter
 import kotlinx.android.synthetic.main.fragment_items.*
 
 
 class ItemsFragment : Fragment(), ItemClickListener {
 
-    private val selectedCategory: CategoryViewModel by activityViewModels()
+    private val selectedCategory: SelectedCategoryViewModel by activityViewModels()
     private lateinit var itemsViewModel: ItemsViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
