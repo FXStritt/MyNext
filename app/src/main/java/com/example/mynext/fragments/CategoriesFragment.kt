@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_category.*
 
 class CategoriesFragment : Fragment(), CategoryClickListener {
 
-    private val selectedCategory: SelectedCategoryViewModel by activityViewModels() //TODO Consider moving to CategoriesViewModel
+    private val selectedCategory: SelectedCategoryViewModel by activityViewModels()
     private lateinit var categoriesViewModel: CategoriesViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

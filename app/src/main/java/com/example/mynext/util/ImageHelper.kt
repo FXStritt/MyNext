@@ -52,7 +52,7 @@ object ImageHelper {
         }
 
         FileOutputStream(file).use {
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 25, it)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 25, it) //TODO Resize bitmap to smaller resolution
             it.flush()
             Log.d("MYTAG", "FileOutputStream flushed $file to $directory")
         }
