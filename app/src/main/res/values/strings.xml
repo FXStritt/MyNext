@@ -9,8 +9,8 @@
 
     <!--    Dummy text strings   -->
     <string name="dummytext_categorycard_title">Books</string>
-    <string name="dummytext_categorycard_number">10</string>
-    <string name="dummytext_categorycard_todo">to read</string>
+    <string name="dummytext_categorycard_number">0</string>
+    <string name="dummytext_categorycard_todo">to %1$s</string>
     <string name="dummytext_categorycard_numdone">3 read this month.</string>
     <string name="dummytext_categorycard_var">+33%</string>
     <string name="dummytext_items_title">Books to read</string>
@@ -22,19 +22,24 @@
     <string name="contentdescr_itemcard_image">illustration image</string>
     <string name="content_descr_itemcard_selectimage">Select illustration image</string>
 
-    <!--    Other Strings-->
+    <!--    Main Strings resources -->
     <string name="new_item_title">New %1$s</string>
     <string name="newitem_hint_title">Title</string>
     <string name="newitem_hint_description">Description</string>
     <string name="newitem_hint_recommended_by">Recommended by</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="new_category">New Category</string>
     <string name="choose_default_image">Choose the default image for items in your category</string>
     <string name="category_name">Category name (e.g Books)</string>
     <string name="items_name">Items name (e.g Book)</string>
     <string name="categ_action">Action (e.g read)</string>
     <string name="new_category_fragment_label">NewCategoryFragment</string>
+
+
+    <!--    Error messages-->
+    <string name="newcateg_error_invalidfields">Please fill in all fields to create a new %1$s</string>
+    <string name="newcateg_error_categexists">Category already exists</string>
+    <string name="newitem_error_message">Please fill in title and description to create a new %1$s</string>
+
 </resources>

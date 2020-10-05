@@ -1,8 +1,18 @@
 package com.example.mynext.model
 
-import android.graphics.Bitmap
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.example.mynext.util.RoomHelper
 import java.util.*
 
-data class Item (val title: String, val description: String,
-                 val recommender: String, val image: Bitmap,
-                 val category: Category, val dateCreated: Date = Date())
+@Entity(tableName = RoomHelper.itemTable)
+data class Item (@ColumnInfo val itemTitle: String,
+                 @ColumnInfo val description: String,
+                 @ColumnInfo val recommender: String,
+                 @ColumnInfo val imageName: String,
+                 @ColumnInfo val categoryId: String,
+                 @ColumnInfo val dateCreated: Date = Date()
+) {
+    @PrimaryKey(autoGenerate = true) var itemId: Int = 0
+}

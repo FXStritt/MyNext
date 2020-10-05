@@ -4,15 +4,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mynext.ItemClickListener
 import com.example.mynext.R
+import com.example.mynext.fragments.ItemClickListener
 import com.example.mynext.model.Item
+import com.example.mynext.util.ImageHelper
 import kotlinx.android.synthetic.main.item_card.view.*
 
-class ItemAdapter(
-    private val items: List<Item>,
-    private val itemClickListener: ItemClickListener) :
+class ItemAdapter(private val itemClickListener: ItemClickListener) :
     RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
+
+    private var items: MutableList<Item> = mutableListOf()
 
     class ItemViewHolder(val card: View) : RecyclerView.ViewHolder(card)
 
@@ -27,15 +28,26 @@ class ItemAdapter(
         }
 
         val item = items[position]
-        holder.card.itemcard_title_tv.text = item.title
-        holder.card.itemcard_description_tv.text = item.description
-        holder.card.itemcard_recommendedby_tv.text = item.recommender
-        holder.card.itemcard_image_iv.setImageBitmap(item.image)
+        with(holder.card) {
+            itemcard_title_tv.text = item.itemTitle
+            itemcard_description_tv.text = item.description
+            itemcard_recommendedby_tv.text = item.recommender
+
+            //TODO load images on separate thread for faster list loading
+            val bitmap = ImageHelper.retrieveBitmapFromFileSystem(context,item.imageName)
+            itemcard_image_iv.setImageBitmap(bitmap)
+        }
     }
 
     override fun getItemCount(): Int {
         return items.size
     }
+
+    fun setItems(newitems: List<Item>) {
+        items = newitems.toMutableList()
+        notifyDataSetChanged()
+    }
+
 
 
 }

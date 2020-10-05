@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/CategoriesFragment"
-        android:name="com.example.mynext.CategoriesFragment"
+        android:name="com.example.mynext.fragments.CategoriesFragment"
         android:label="@string/categories_fragment_label"
         tools:layout="@layout/fragment_category">
 
@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/ItemsFragment"
-        android:name="com.example.mynext.ItemsFragment"
+        android:name="com.example.mynext.fragments.ItemsFragment"
         android:label="@string/item_fragment_label"
         tools:layout="@layout/fragment_items">
 
@@ -37,7 +37,7 @@
 
     <fragment
         android:id="@+id/NewItemsFragment"
-        android:name="com.example.mynext.NewItemFragment"
+        android:name="com.example.mynext.fragments.NewItemFragment"
         android:label="@string/new_item_fragment_label"
         tools:layout="@layout/fragment_new_item">
 
@@ -49,7 +49,7 @@
 
     <fragment
         android:id="@+id/NewCategoryFragment"
-        android:name="com.example.mynext.NewCategoryFragment"
+        android:name="com.example.mynext.fragments.NewCategoryFragment"
         android:label="@string/new_category_fragment_label"
         tools:layout="@layout/fragment_new_category">
 

@@ -4,15 +4,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mynext.CategoryClickListener
 import com.example.mynext.R
+import com.example.mynext.fragments.CategoryClickListener
 import com.example.mynext.model.Category
 import kotlinx.android.synthetic.main.category_card.view.*
 
 class CategoryAdapter(
-    private val categories: MutableList<Category>,
     private val categoryClickListener: CategoryClickListener,
 ) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
+
+
+    private var categories: MutableList<Category> = mutableListOf()
 
     companion object {
         private const val TYPE_CATEGORY = 1
@@ -21,9 +23,8 @@ class CategoryAdapter(
     }
 
     init { //adds a category used by getItemViewType() to have a layout that shows a "+ category" item
-        categories.add(Category(ADD_CATEGORY,"",""))
+        categories.add(getNewAddCategory())
     }
-
 
     class CategoryViewHolder(val card: View) : RecyclerView.ViewHolder(card)
 
@@ -42,6 +43,9 @@ class CategoryAdapter(
         if (getItemViewType(position) == TYPE_CATEGORY) {
             val category = categories[position]
             holder.card.categorycard_title_tv.text = category.title
+
+            val text = "to ${category.verb}"
+            holder.card.categorycard_todo_tv.text = text
         }
     }
 
@@ -55,5 +59,15 @@ class CategoryAdapter(
         } else {
             TYPE_CATEGORY
         }
+    }
+
+    fun setCategories(newCategories: List<Category>) {
+        categories = newCategories.toMutableList()
+        categories.add(getNewAddCategory())
+        notifyDataSetChanged()
+    }
+
+    private fun getNewAddCategory() : Category {
+        return Category(ADD_CATEGORY,"","")
     }
 }

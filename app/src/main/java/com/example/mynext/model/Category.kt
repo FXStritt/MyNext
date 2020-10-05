@@ -1,6 +1,13 @@
 package com.example.mynext.model
 
-import android.graphics.Bitmap
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.example.mynext.util.RoomHelper
 
-data class Category (val title: String, val itemsName: String, val verb: String, var defaultItemsImage: Bitmap? = null)
-//TODO mutable and nullable bitmap is temporary, until Room database is created and we can move away from DummyDataProvider
+@Entity(tableName = RoomHelper.categoryTable)
+data class Category(
+    @PrimaryKey @ColumnInfo val title: String,
+    @ColumnInfo val itemsName: String,
+    @ColumnInfo val verb: String,
+    @ColumnInfo val imageName: String = "" )

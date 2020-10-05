@@ -5,4 +5,7 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="colorDecrease">#B00020</color>
     <color name="colorIncrease">#388e3c</color>
+
+
+    <color name="colorError">#B00020</color>
 </resources>

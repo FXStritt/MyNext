@@ -5,121 +5,126 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import com.example.mynext.R
 import com.example.mynext.model.Category
-import com.example.mynext.model.Item
 
 class DummyDataProvider(val context: Context?) {
 
-    fun getDummyCategories(): MutableList<Category> {
-
-        return mutableListOf(
-            Category("Books","Book","Read"),
-            Category("Movies","Movie","Watch"),
-            Category("Places","Place","Visit")
-        )
-    }
-
-    fun getDummyItemFromCategory(category: Category): List<Item> {
-        return when (category.title) {
-            "Books" -> getDummyBooks()
-            "Movies" -> getDummyMovies()
-            else -> getDummyPlaces()
-        }
-    }
-
-    private fun getDummyBooks(): List<Item> {
-        val booksCategory = Category("Books","Book","Read")
+    fun getDummyCategoriesWithBitmap(): List<Pair<Category,Bitmap>> {
         return listOf(
-            Item(
-                "Clean Code",
-                "Book with rules to follow in order to write clean, scalable and testable code",
-                "Oswaldo",
-                getDummyBitmap(booksCategory),
-                booksCategory
-            ),
-            Item(
-                "Sfumato",
-                "Not sure what this book is about, something related to art and what the meaning of life is",
-                "Sacha",
-                getDummyBitmap(booksCategory),
-                booksCategory
-            ),
-            Item(
-                "Oryx and Crake",
-                "One of the best read of the 21st century... apparently",
-                "bestbooks.com",
-                getDummyBitmap(booksCategory),
-                booksCategory
-            ),
-            Item(
-                "Out of the head and into the heart",
-                "Motivational book that I found in the stoss hotel I stayed at.",
-                "Stoss",
-                getDummyBitmap(booksCategory),
-                booksCategory
-            )
-
+            Pair(
+                Category("Books", "Book", "Read", "dummyBooks"),
+                getDummyBitmap("Books")),
+            Pair(
+                Category("Movies", "Movie", "Watch", "dummyMovies"),
+                getDummyBitmap("Movies")),
+            Pair(
+                Category("Places", "Place", "Visit", "dummyPlaces"),
+                getDummyBitmap("Places"))
         )
     }
+//
+//    fun getDummyItemFromCategory(category: Category): List<Item> {
+//        return when (category.title) {
+//            "Books" -> getDummyBooks()
+//            "Movies" -> getDummyMovies()
+//            else -> getDummyPlaces()
+//        }
+//    }
+//
+//    private fun getDummyBooks(): List<Item> {
+//        val booksCategory = "Books"
+//        return listOf(
+//            Item(
+//                "Clean Code",
+//                "Book with rules to follow in order to write clean, scalable and testable code",
+//                "Oswaldo",
+//                getDummyBitmap(booksCategory),
+//                booksCategory
+//            ),
+//            Item(
+//                "Sfumato",
+//                "Not sure what this book is about, something related to art and what the meaning of life is",
+//                "Sacha",
+//                getDummyBitmap(booksCategory),
+//                booksCategory
+//            ),
+//            Item(
+//                "Oryx and Crake",
+//                "One of the best read of the 21st century... apparently",
+//                "bestbooks.com",
+//                getDummyBitmap(booksCategory),
+//                booksCategory
+//            ),
+//            Item(
+//                "Out of the head and into the heart",
+//                "Motivational book that I found in the stoss hotel I stayed at.",
+//                "Stoss",
+//                getDummyBitmap(booksCategory),
+//                booksCategory
+//            )
+//
+//        )
+//    }
+//
+//    private fun getDummyMovies(): List<Item> {
+//        val moviesCategory = "Movies"
+//        return listOf(
+//            Item(
+//                "Tenet",
+//                "New christoher Nolan movie",
+//                "NA",
+//                getDummyBitmap(moviesCategory),
+//                moviesCategory
+//            ),
+//
+//            Item(
+//                "Le chant du loup",
+//                "Some movie abour french submarines that this person I spoke to on the train recommended",
+//                "Stranger",
+//                getDummyBitmap(moviesCategory),
+//                moviesCategory
+//            ),
+//
+//            Item(
+//                "Stalker",
+//                "Macha told me this was a must see russian move, by tarkovski",
+//                "Macha",
+//                getDummyBitmap(moviesCategory),
+//                moviesCategory
+//            )
+//        )
+//    }
+//
+//    private fun getDummyPlaces(): List<Item> {
+//        val placesCategory = "Places"
+//        return listOf(
+//            Item(
+//                "London",
+//                "I always wanted to go to London",
+//                "Myself",
+//                getDummyBitmap(placesCategory),
+//                placesCategory
+//            ),
+//            Item(
+//                "Back&Buc Creperie",
+//                "I was told they do really good food for quite cheap",
+//                "John",
+//                getDummyBitmap(placesCategory),
+//                placesCategory
+//            ),
+//            Item(
+//                "Pripyat",
+//                "Man, there are some creepy stories about this place. Would be cool to visit",
+//                "Dark Tourist",
+//                getDummyBitmap(placesCategory),
+//                placesCategory
+//            )
+//
+//        )
+//    }
 
-    private fun getDummyMovies(): List<Item> {
-        val moviesCategory = Category("Movies","Movie","Watch")
-        return listOf(
-            Item(
-                "Tenet",
-                "New christoher Nolan movie",
-                "NA",
-                getDummyBitmap(moviesCategory),
-                moviesCategory
-            ),
-
-            Item(
-                "Le chant du loup",
-                "Some movie abour french submarines that this person I spoke to on the train recommended",
-                "Stranger",
-                getDummyBitmap(moviesCategory),
-                moviesCategory
-            ),
-
-            Item(
-                "Stalker",
-                "Macha told me this was a must see russian move, by tarkovski",
-                "Macha",
-                getDummyBitmap(moviesCategory),
-                moviesCategory
-            )
-        )
-    }
-
-    private fun getDummyPlaces(): List<Item> {
-        val placesCategory = Category("Places","Place","Visit")
-        return listOf(
-            Item(
-                "London",
-                "I always wanted to go to London",
-                "Myself",
-                getDummyBitmap(placesCategory),
-                placesCategory
-            ),
-            Item(
-                "Back&Buc Creperie",
-                "I was told they do really good food for quite cheap",
-                "John",
-                getDummyBitmap(placesCategory),
-                placesCategory
-            ),
-            Item(
-                "Pripyat",
-                "Man, there are some creepy stories about this place. Would be cool to visit",
-                "Dark Tourist",
-                getDummyBitmap(placesCategory),
-                placesCategory
-            )
-
-        )
-    }
-
-    fun getDummyBitmap(category: Category?): Bitmap {
-        return when (category?.title) {
+    fun getDummyBitmap(title: String?): Bitmap {
+        return when (title) {
+            "BrokenLink" -> BitmapFactory.decodeResource(context?.resources, R.drawable.ic_baseline_broken_image_24)
             "Books" -> BitmapFactory.decodeResource(context?.resources, R.drawable.book)
             "Movies" -> BitmapFactory.decodeResource(context?.resources, R.drawable.movies)
             else -> BitmapFactory.decodeResource(context?.resources, R.drawable.places)

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="5dp"
     android:elevation="10dp"
-    app:cardUseCompatPadding="true"
-    android:layout_margin="5dp">
+    app:cardUseCompatPadding="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,9 +28,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/dummytext_categorycard_number"
-            android:textSize="20sp"
             android:textColor="@color/colorAccent"
-            android:textStyle="bold"/>
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/categorycard_todo_tv"
@@ -38,14 +38,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/dummytext_categorycard_todo"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/categorycard_numberdone_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="@string/dummytext_categorycard_numdone"/>
+            android:text="@string/dummytext_categorycard_numdone" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/categorycard_variationdone_tv"
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/dummytext_categorycard_var"
-            android:textColor="@color/colorIncrease"/>
+            android:textColor="@color/colorIncrease" />
 
     </LinearLayout>
 
