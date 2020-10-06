@@ -1,10 +1,9 @@
 package com.example.mynext.data
 
 import androidx.lifecycle.LiveData
+import androidx.room.*
 import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import com.example.mynext.model.CategoriesWithItems
 import com.example.mynext.model.Category
 import com.example.mynext.model.Item
 import com.example.mynext.util.RoomHelper
@@ -17,14 +16,15 @@ interface Dao {
    @Query("DELETE FROM ${RoomHelper.categoryTable}" )
    suspend fun deleteTableCategories()
 
-   @Query("SELECT * from ${RoomHelper.categoryTable}")
+   @Query("SELECT * FROM ${RoomHelper.categoryTable}")
    fun getAllCategories(): LiveData<List<Category>>
 
-   @Query("SELECT * from ${RoomHelper.itemTable}")
+   @Query("SELECT * FROM ${RoomHelper.itemTable}")
    fun getAllItems(): LiveData<List<Item>>
 
-//   @Query("SELECT * from ${RoomHelper.itemTable} WHERE categoryId = :categoryID")
-//   fun getItemsFromCategory(categoryID: String): LiveData<List<Item>>
+   @Transaction
+   @Query("SELECT * FROM category_table")
+   fun getCategoriesWithItems() : LiveData<List<CategoriesWithItems>>
 
    @Insert(onConflict = OnConflictStrategy.IGNORE)
    suspend fun insertCategory(category: Category)
