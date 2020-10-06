@@ -9,6 +9,9 @@ import com.example.mynext.fragments.ItemClickListener
 import com.example.mynext.model.Item
 import com.example.mynext.util.ImageHelper
 import kotlinx.android.synthetic.main.item_card.view.*
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ItemAdapter(private val itemClickListener: ItemClickListener) :
     RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
@@ -31,7 +34,11 @@ class ItemAdapter(private val itemClickListener: ItemClickListener) :
         with(holder.card) {
             itemcard_title_tv.text = item.itemTitle
             itemcard_description_tv.text = item.description
-            itemcard_recommendedby_tv.text = item.recommender
+            itemcard_recommendedby_tv.text = context.getString(R.string.itemcard_recommended_by,item.recommender)
+
+            val dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault())
+            val formattedDate = dateFormat.format(item.dateCreated)
+            itemcard_dateadded_tv.text = context.getString(R.string.itemcard_dateadded, formattedDate)
 
             //TODO load images on separate thread for faster list loading
             val bitmap = ImageHelper.retrieveBitmapFromFileSystem(context,item.imageName)

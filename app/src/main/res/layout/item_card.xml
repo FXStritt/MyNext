@@ -50,6 +50,16 @@
             android:text="@string/dummytext_itemcard_reco" />
 
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/itemcard_dateadded_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/itemcard_recommendedby_tv"
+            android:layout_toEndOf="@+id/itemcard_image_iv"
+            android:text="@string/dummytext_itemcard_date"
+            android:textStyle="italic"/>
+
+
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
