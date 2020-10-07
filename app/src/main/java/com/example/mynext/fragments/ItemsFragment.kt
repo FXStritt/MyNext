@@ -1,10 +1,10 @@
 package com.example.mynext.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
@@ -15,11 +15,17 @@ import com.example.mynext.model.Item
 import com.example.mynext.model.ItemsViewModel
 import com.example.mynext.model.SelectedCategoryViewModel
 import com.example.mynext.ui.ItemAdapter
+import com.example.mynext.util.ImageHelper
+import kotlinx.android.synthetic.main.dialog_item_details.view.*
 import kotlinx.android.synthetic.main.fragment_items.*
+import kotlinx.android.synthetic.main.item_card.view.*
+import java.text.DateFormat
+import java.util.*
 
 
 class ItemsFragment : Fragment(), ItemClickListener {
 
+    //TODO selectedCategory could be a new ViewModel with type CategoryWithItems, avoiding items loading and filtering in this fragment
     private val selectedCategory: SelectedCategoryViewModel by activityViewModels()
     private lateinit var itemsViewModel: ItemsViewModel
 
@@ -54,11 +60,29 @@ class ItemsFragment : Fragment(), ItemClickListener {
         })
     }
 
-    override fun onItemClickListener() {
-        Toast.makeText(context, "Implement action",Toast.LENGTH_SHORT).show()
+    override fun onItemClickListener(item: Item) {
+        val dialogBuilder = AlertDialog.Builder(activity)
+        val dialogView = View.inflate(context,R.layout.dialog_item_details,null)
+
+        with(dialogView) {
+            itemdialog_title_tv.text = item.itemTitle
+            itemdialog_description_tv.text = item.description
+            itemdialog_recommender_tv.text = context.getString(R.string.recommended_by,item.recommender)
+
+            val dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault())
+            val formattedDate = dateFormat.format(item.dateCreated)
+            itemdialog_date_tv.text = context.getString(R.string.dateadded, formattedDate)
+
+            val bitmap = ImageHelper.retrieveBitmapFromFileSystem(context,item.imageName)
+            itemdialog_image_iv.setImageBitmap(bitmap)
+        }
+
+        dialogBuilder.setView(dialogView)
+        val dialog = dialogBuilder.create()
+        dialog.show()
     }
 }
 
 interface ItemClickListener {
-    fun onItemClickListener ()
+    fun onItemClickListener (item: Item)
 }

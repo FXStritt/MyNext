@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/itemdialog_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/dummytext_itemcard_title"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/itemdialog_image_iv"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@string/contentdescr_itemcard_image"
+        android:src="@drawable/book" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/itemdialog_description_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dummytext_itemcard_description" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/itemdialog_recommender_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dummytext_itemcard_reco"
+        android:textStyle="italic" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/itemdialog_date_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dummytext_itemcard_date"
+        android:textStyle="italic" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/itemdialog_findonline_btn"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/colorAccent"
+            app:icon="@drawable/ic_baseline_search_24"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/itemdialog_markasdone_btn"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/colorAccent"
+            app:icon="@drawable/ic_baseline_check_box_outline_blank_24"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/itemdialog_edit_btn"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/colorAccent"
+            app:icon="@drawable/ic_baseline_edit_24"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/itemdialog_delete_btn"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/colorAccent"
+            app:icon="@drawable/ic_baseline_delete_24"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp" />
+
+    </LinearLayout>
+
+</LinearLayout>
