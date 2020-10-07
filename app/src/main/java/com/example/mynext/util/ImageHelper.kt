@@ -86,7 +86,7 @@ object ImageHelper {
         return if (file.exists()) {
             BitmapFactory.decodeFile(file.absolutePath)
         } else {
-            DummyDataProvider(context).getDummyBitmap("Books") //TODO Broken Link image causes crash, determine why
+            DummyDataProvider(context).getDummyBitmap("BrokenLink")
         }
     }
 

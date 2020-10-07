@@ -25,6 +25,7 @@ class NewItemFragment : Fragment() {
 
     private val selectedCategory: SelectedCategoryViewModel by activityViewModels()
     private lateinit var chosenImage: Bitmap
+    private var imageIsDummy = true
     private lateinit var itemsViewModel: ItemsViewModel
 
     override fun onCreateView(
@@ -104,11 +105,10 @@ class NewItemFragment : Fragment() {
             val uri = data?.data ?: return
             val bitmap = ImageHelper.getBitmapFromUri(uri, requireActivity())
 
-            bitmap.let {
+            bitmap?.let {
                 createitem_image_iv.setImageBitmap(bitmap)
-                if (bitmap != null) {
-                    chosenImage = bitmap
-                }
+                chosenImage = bitmap
+                imageIsDummy = false
             }
         }
     }
@@ -120,8 +120,11 @@ class NewItemFragment : Fragment() {
         val category = selectedCategory.selected.value?.title
         val date = Date()
 
-        //TODO verify if image is different then dummy. If not, title should not be different than dummy image to avoid double saving
+        var imageName = title + date.time
+        if (imageIsDummy && selectedCategory.selected.value?.imageName != null) {
+            imageName = selectedCategory.selected.value?.imageName.toString()
+        }
 
-        return Item(title, description, recommender,title + date.time , category ?: "NA", Date())
+        return Item(title, description, recommender, imageName , category ?: "NA", Date())
     }
 }
