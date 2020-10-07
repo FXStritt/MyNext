@@ -120,6 +120,8 @@ class NewItemFragment : Fragment() {
         val category = selectedCategory.selected.value?.title
         val date = Date()
 
+        //TODO verify if image is different then dummy. If not, title should not be different than dummy image to avoid double saving
+
         return Item(title, description, recommender,title + date.time , category ?: "NA", Date())
     }
 }

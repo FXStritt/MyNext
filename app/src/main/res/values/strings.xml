@@ -17,6 +17,7 @@
     <string name="dummytext_itemcard_title">The year of the flood</string>
     <string name="dummytext_itemcard_description">Second book of the maddaddam trilogy, written by Margaret Atwood</string>
     <string name="dummytext_itemcard_reco">Recommended by: Jean</string>
+    <string name="dummytext_itemcard_date">Added 18.05.2020</string>
 
     <!--    Content descriptions -->
     <string name="contentdescr_itemcard_image">illustration image</string>
@@ -35,6 +36,9 @@
     <string name="items_name">Items name (e.g Book)</string>
     <string name="categ_action">Action (e.g read)</string>
     <string name="new_category_fragment_label">NewCategoryFragment</string>
+
+    <string name="itemcard_recommended_by">Recommended by %1$s</string>
+    <string name="itemcard_dateadded">Added %1$s</string>
 
 
     <!--    Error messages-->

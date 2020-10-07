@@ -47,16 +47,35 @@ object ImageHelper {
         val directory = cw.getDir("imageDir", Context.MODE_PRIVATE)
         val file = File(directory, "$filename.png")
 
-        if (file.exists()) {
-            file.delete()
-        }
+        if (!file.exists()) {
 
-        FileOutputStream(file).use {
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 25, it) //TODO Resize bitmap to smaller resolution
-            it.flush()
-            Log.d("MYTAG", "FileOutputStream flushed $file to $directory")
-        }
+            val resizedBitmap = resizeBitmapToMax480by480(bitmap)
 
+            FileOutputStream(file).use {
+                resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 25, it)
+                it.flush()
+            }
+        }
+    }
+
+    private fun resizeBitmapToMax480by480(bitmap: Bitmap): Bitmap {
+        with(bitmap) {
+            return if (width > 480 || height > 480) {
+                val aspectRatio = width.toDouble() / height.toDouble()
+                val newWidth: Int
+                val newHeight: Int
+                if (width > height) {
+                    newWidth = 480
+                    newHeight = (newWidth / aspectRatio).toInt()
+                } else {
+                    newHeight = 480
+                    newWidth = (aspectRatio * newHeight).toInt()
+                }
+                Bitmap.createScaledBitmap(this, newWidth, newHeight, false)
+            } else {
+                this
+            }
+        }
     }
 
     fun retrieveBitmapFromFileSystem(context: Context, filename: String): Bitmap {
@@ -67,7 +86,7 @@ object ImageHelper {
         return if (file.exists()) {
             BitmapFactory.decodeFile(file.absolutePath)
         } else {
-            DummyDataProvider(context).getDummyBitmap("BrokenLink")
+            DummyDataProvider(context).getDummyBitmap("Books") //TODO Broken Link image causes crash, determine why
         }
     }
 
