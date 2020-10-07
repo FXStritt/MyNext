@@ -40,7 +40,6 @@ class ItemAdapter(private val itemClickListener: ItemClickListener) :
             val formattedDate = dateFormat.format(item.dateCreated)
             itemcard_dateadded_tv.text = context.getString(R.string.itemcard_dateadded, formattedDate)
 
-            //TODO load images on separate thread for faster list loading
             val bitmap = ImageHelper.retrieveBitmapFromFileSystem(context,item.imageName)
             itemcard_image_iv.setImageBitmap(bitmap)
         }
