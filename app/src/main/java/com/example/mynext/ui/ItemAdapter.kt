@@ -1,5 +1,6 @@
 package com.example.mynext.ui
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,6 +42,22 @@ class ItemAdapter(private val itemClickListener: ItemClickListener) :
 
             val bitmap = ImageHelper.retrieveBitmapFromFileSystem(context,item.imageName)
             itemcard_image_iv.setImageBitmap(bitmap)
+
+            grayOutFieldsIfItemDone(this, item.done)
+        }
+    }
+
+    private fun grayOutFieldsIfItemDone(view: View, itemDone : Boolean) {
+        with(view) {
+            itemcard_title_tv.isEnabled = !itemDone
+            itemcard_description_tv.isEnabled = !itemDone
+            itemcard_recommendedby_tv.isEnabled = !itemDone
+            itemcard_dateadded_tv.isEnabled = !itemDone
+            if (itemDone) {
+                itemcard_image_iv.setColorFilter(Color.argb(200, 200, 200, 200))
+            } else {
+                itemcard_image_iv.clearColorFilter()
+            }
         }
     }
 

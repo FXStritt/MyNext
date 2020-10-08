@@ -51,6 +51,7 @@ class ItemsFragment : Fragment(), ItemClickListener {
         //once fragment knows which category/items to display, initialize recyclerview
         selectedCategory.selected.observe(viewLifecycleOwner, { category ->
 
+            //TODO should the items view model actually be accessed from the recyclerview instead of passed from this fragment ?
             val itemAdapter = ItemAdapter(this)
 
             itemsViewModel.allItems.observe(viewLifecycleOwner) {
@@ -102,6 +103,12 @@ class ItemsFragment : Fragment(), ItemClickListener {
 
             val bitmap = ImageHelper.retrieveBitmapFromFileSystem(context, item.imageName)
             itemdialog_image_iv.setImageBitmap(bitmap)
+
+            if (item.done) {
+                itemdialog_markasdone_btn.setBackgroundColor(resources.getColor(R.color.colorAccent, context.theme))
+            } else {
+                itemdialog_markasdone_btn.setBackgroundColor(resources.getColor(R.color.colorNotDone, context.theme))
+            }
         }
     }
 
@@ -115,9 +122,14 @@ class ItemsFragment : Fragment(), ItemClickListener {
             }
 
             itemdialog_markasdone_btn.setOnClickListener {
-                Log.d("MYTAG", item.toString())
-                item.done = true
-                Log.d("MYTAG", item.toString())
+                if (item.done) {
+                    item.done = false //TODO should this code be move to the ItemsViewModel?
+                    itemdialog_markasdone_btn.setBackgroundColor(resources.getColor(R.color.colorNotDone, context.theme))
+                } else {
+                    item.done = true
+                    itemdialog_markasdone_btn.setBackgroundColor(resources.getColor(R.color.colorAccent, context.theme))
+                }
+                itemsViewModel.updateItem(item)
             }
 
             itemdialog_edit_btn.setOnClickListener {
@@ -127,6 +139,7 @@ class ItemsFragment : Fragment(), ItemClickListener {
             itemdialog_delete_btn.setOnClickListener {
                 itemsViewModel.deleteItem(item, selectedCategory.selected.value?.imageName)
                 dialog.dismiss()
+                //Note: can use setTag() to set a tag, e.g (pressed for a first / second time)
             }
         }
     }

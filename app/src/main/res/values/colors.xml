@@ -8,4 +8,5 @@
 
 
     <color name="colorError">#B00020</color>
+    <color name="colorNotDone">#A6A6A6</color>
 </resources>

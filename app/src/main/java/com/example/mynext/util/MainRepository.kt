@@ -21,7 +21,7 @@ class MainRepository (private val dao: Dao) {
     }
 
     suspend fun delete(item: Item) {
-        dao.deleteItem(item)
+        dao.delete(item)
     }
 
     suspend fun deleteAll() {
@@ -33,5 +33,9 @@ class MainRepository (private val dao: Dao) {
         for (item : Item in DummyDataProvider(context).getDummyItemsList()) {
             dao.insertItem(item)
         }
+    }
+
+    suspend fun update(item: Item) {
+        dao.update(item)
     }
 }

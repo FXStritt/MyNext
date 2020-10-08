@@ -33,5 +33,8 @@ interface Dao {
    suspend fun insertItem(item: Item)
 
    @Delete
-   suspend fun deleteItem(item: Item)
+   suspend fun delete(item: Item)
+
+   @Update
+   suspend fun update(item: Item)
 }
