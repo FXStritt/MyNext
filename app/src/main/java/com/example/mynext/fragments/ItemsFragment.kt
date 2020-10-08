@@ -1,6 +1,7 @@
 package com.example.mynext.fragments
 
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -67,16 +68,23 @@ class ItemsFragment : Fragment(), ItemClickListener {
         })
     }
 
-    override fun onItemClickListener(item: Item) { //on item selection, create alert dialog showing item details & possible actions
+    override fun onItemClickListener(item: Item) {
+        getItemDialog(item).show()
+    }
+
+    private fun getItemDialog(item: Item) : Dialog {
+
         val dialogBuilder = AlertDialog.Builder(activity)
         val dialogView = View.inflate(context, R.layout.dialog_item_details, null)
 
         setItemInformation(dialogView, item)
-        setButtonsActions(dialogView, item)
 
         dialogBuilder.setView(dialogView)
         val dialog = dialogBuilder.create()
-        dialog.show()
+
+        setButtonsActions(dialogView, item, dialog) //Buttons actions are set after dialog creation as we need its reference to dismiss it
+
+        return dialog
     }
 
     private fun setItemInformation(dialogView: View, item: Item) {
@@ -97,13 +105,13 @@ class ItemsFragment : Fragment(), ItemClickListener {
         }
     }
 
-    private fun setButtonsActions(dialogView: View, item: Item) {
+    private fun setButtonsActions(dialogView: View, item: Item, dialog: Dialog) {
         with(dialogView) {
             itemdialog_findonline_btn.setOnClickListener {
                 //Example of generated url: https://www.google.com/search?q=Book+To+kill+a+Mockingbird
                 val url = "https://www.google.com/search?q=${selectedCategory.selected.value?.itemsName}+${item.itemTitle}"
                 val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                startActivity(browserIntent)
+                context.startActivity(browserIntent)
             }
 
             itemdialog_markasdone_btn.setOnClickListener {
@@ -115,9 +123,9 @@ class ItemsFragment : Fragment(), ItemClickListener {
             }
 
             itemdialog_delete_btn.setOnClickListener {
-                Log.d("MYTAG", "delete item")
+                itemsViewModel.delete(item)
+                dialog.dismiss()
             }
-
         }
     }
 }
@@ -125,3 +133,5 @@ class ItemsFragment : Fragment(), ItemClickListener {
 interface ItemClickListener {
     fun onItemClickListener(item: Item)
 }
+
+

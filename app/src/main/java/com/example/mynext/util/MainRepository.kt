@@ -19,6 +19,10 @@ class MainRepository (private val dao: Dao) {
         dao.insertItem(item)
     }
 
+    suspend fun delete(item: Item) {
+        dao.deleteItem(item)
+    }
+
     suspend fun deleteAll() {
         dao.deleteTableItem()
         dao.deleteTableCategories()

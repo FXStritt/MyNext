@@ -25,6 +25,10 @@ class ItemsViewModel(application: Application) : AndroidViewModel(application) {
         repository.insert(item)
         ImageHelper.saveBitmapToFileSystem(getApplication(),item.imageName, bitmap)
     }
+
+    fun delete(item: Item) = viewModelScope.launch (Dispatchers.IO) {
+        repository.delete(item)
+    }
 }
 
 //Use below code to have filter by queries

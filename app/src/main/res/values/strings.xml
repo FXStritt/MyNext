@@ -46,4 +46,10 @@
     <string name="newcateg_error_categexists">Category already exists</string>
     <string name="newitem_error_message">Please fill in title and description to create a new %1$s</string>
 
+    <!-- Deletion messages   -->
+    <string name="delete_item">Delete?</string>
+    <string name="delete_item_confirm">Confirm Deletion?</string>
+    <string name="delete_yes">Yes</string>
+    <string name="delete_no">No</string>
+
 </resources>
