@@ -26,8 +26,9 @@ class ItemsViewModel(application: Application) : AndroidViewModel(application) {
         ImageHelper.saveBitmapToFileSystem(getApplication(),item.imageName, bitmap)
     }
 
-    fun delete(item: Item) = viewModelScope.launch (Dispatchers.IO) {
+    fun deleteItem(item: Item, categoryImageName : String?) = viewModelScope.launch (Dispatchers.IO) {
         repository.delete(item)
+        ImageHelper.deleteItemBitmapFromFileSystem(getApplication(), item.imageName, categoryImageName)
     }
 }
 

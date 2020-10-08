@@ -123,7 +123,7 @@ class ItemsFragment : Fragment(), ItemClickListener {
             }
 
             itemdialog_delete_btn.setOnClickListener {
-                itemsViewModel.delete(item)
+                itemsViewModel.deleteItem(item, selectedCategory.selected.value?.imageName)
                 dialog.dismiss()
             }
         }
