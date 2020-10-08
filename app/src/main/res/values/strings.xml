@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">My Next</string>
     <string name="action_debug_delete">(debug) delete all</string>
+    <string name="action_debug_populate">(debug) populate db</string>
 
     <!-- Strings used for fragments for navigation -->
     <string name="categories_fragment_label">Categories Fragment</string>

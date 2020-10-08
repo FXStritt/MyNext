@@ -115,7 +115,9 @@ class ItemsFragment : Fragment(), ItemClickListener {
             }
 
             itemdialog_markasdone_btn.setOnClickListener {
-                Log.d("MYTAG", "mark as done")
+                Log.d("MYTAG", item.toString())
+                item.done = true
+                Log.d("MYTAG", item.toString())
             }
 
             itemdialog_edit_btn.setOnClickListener {

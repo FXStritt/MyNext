@@ -41,6 +41,10 @@ class MainActivity : AppCompatActivity() {
                 GlobalScope.launch { repository.deleteAll() }
                 true
             }
+            R.id.action_debug_populate -> {
+                GlobalScope.launch { repository.populateDummyItems(applicationContext) }
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

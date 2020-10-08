@@ -12,7 +12,8 @@ data class Item (@ColumnInfo val itemTitle: String,
                  @ColumnInfo val recommender: String,
                  @ColumnInfo val imageName: String,
                  @ColumnInfo val categoryId: String,
-                 @ColumnInfo val dateCreated: Date = Date() //not using newer LocalDate to retain lower API compatibility < 26
+                 @ColumnInfo val dateCreated: Date = Date(), //not using newer LocalDate to retain lower API compatibility < 26
+                 @ColumnInfo var done : Boolean = false
 ) {
     @PrimaryKey(autoGenerate = true) var itemId: Int = 0
 }
