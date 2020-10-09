@@ -19,7 +19,7 @@ interface Dao {
    @Query("SELECT * FROM ${RoomHelper.categoryTable}")
    fun getAllCategories(): LiveData<List<Category>>
 
-   @Query("SELECT * FROM ${RoomHelper.itemTable}")
+   @Query("SELECT * FROM ${RoomHelper.itemTable} ORDER BY done, dateCreated DESC")
    fun getAllItems(): LiveData<List<Item>>
 
    @Transaction
@@ -31,4 +31,10 @@ interface Dao {
 
    @Insert(onConflict = OnConflictStrategy.REPLACE)
    suspend fun insertItem(item: Item)
+
+   @Delete
+   suspend fun delete(item: Item)
+
+   @Update
+   suspend fun update(item: Item)
 }

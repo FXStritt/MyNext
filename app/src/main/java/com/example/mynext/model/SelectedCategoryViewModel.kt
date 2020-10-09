@@ -9,5 +9,4 @@ class SelectedCategoryViewModel : ViewModel() {
     fun select(category: Category) {
         selected.value = category
     }
-
 }

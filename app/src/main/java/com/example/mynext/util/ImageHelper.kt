@@ -43,9 +43,7 @@ object ImageHelper {
     }
 
     fun saveBitmapToFileSystem(context: Context, filename: String, bitmap: Bitmap) {
-        val cw = ContextWrapper(context)
-        val directory = cw.getDir("imageDir", Context.MODE_PRIVATE)
-        val file = File(directory, "$filename.png")
+        val file = getFileRef(context, filename)
 
         if (!file.exists()) {
 
@@ -79,15 +77,29 @@ object ImageHelper {
     }
 
     fun retrieveBitmapFromFileSystem(context: Context, filename: String): Bitmap {
-        val cw = ContextWrapper(context)
-        val directory = cw.getDir("imageDir", Context.MODE_PRIVATE)
-        val file = File(directory, "$filename.png")
+        val file = getFileRef(context, filename)
 
         return if (file.exists()) {
             BitmapFactory.decodeFile(file.absolutePath)
         } else {
             DummyDataProvider(context).getDummyBitmap("BrokenLink")
         }
+    }
+
+    fun deleteItemBitmapFromFileSystem(context: Context, filename: String, categoryImageName: String?) {
+        if (filename != categoryImageName) { //we do not want to delete the image if it is a category dummy image as this would impact other items.
+            val file = getFileRef(context, filename)
+            if (file.exists()) {
+                file.delete()
+            }
+        }
+    }
+
+    private fun getFileRef(context: Context, filename: String) : File {
+        val cw = ContextWrapper(context)
+        val directory = cw.getDir("imageDir", Context.MODE_PRIVATE)
+        return File(directory, "$filename.png")
+
     }
 
 }

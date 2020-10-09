@@ -1,5 +1,6 @@
 package com.example.mynext.ui
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,6 @@ import com.example.mynext.model.Item
 import com.example.mynext.util.ImageHelper
 import kotlinx.android.synthetic.main.item_card.view.*
 import java.text.DateFormat
-import java.text.SimpleDateFormat
 import java.util.*
 
 class ItemAdapter(private val itemClickListener: ItemClickListener) :
@@ -27,21 +27,37 @@ class ItemAdapter(private val itemClickListener: ItemClickListener) :
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.itemView.setOnClickListener {
-            itemClickListener.onItemClickListener()
+            itemClickListener.onItemClickListener(items[position])
         }
 
         val item = items[position]
         with(holder.card) {
             itemcard_title_tv.text = item.itemTitle
             itemcard_description_tv.text = item.description
-            itemcard_recommendedby_tv.text = context.getString(R.string.itemcard_recommended_by,item.recommender)
+            itemcard_recommendedby_tv.text = context.getString(R.string.recommended_by,item.recommender) //TODO should be size 0 if no recommender
 
             val dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault())
             val formattedDate = dateFormat.format(item.dateCreated)
-            itemcard_dateadded_tv.text = context.getString(R.string.itemcard_dateadded, formattedDate)
+            itemcard_dateadded_tv.text = context.getString(R.string.dateadded, formattedDate)
 
             val bitmap = ImageHelper.retrieveBitmapFromFileSystem(context,item.imageName)
             itemcard_image_iv.setImageBitmap(bitmap)
+
+            grayOutFieldsIfItemDone(this, item.done)
+        }
+    }
+
+    private fun grayOutFieldsIfItemDone(view: View, itemDone : Boolean) {
+        with(view) {
+            itemcard_title_tv.isEnabled = !itemDone
+            itemcard_description_tv.isEnabled = !itemDone
+            itemcard_recommendedby_tv.isEnabled = !itemDone
+            itemcard_dateadded_tv.isEnabled = !itemDone
+            if (itemDone) {
+                itemcard_image_iv.setColorFilter(Color.argb(200, 200, 200, 200))
+            } else {
+                itemcard_image_iv.clearColorFilter()
+            }
         }
     }
 

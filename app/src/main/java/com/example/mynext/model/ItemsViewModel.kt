@@ -25,21 +25,13 @@ class ItemsViewModel(application: Application) : AndroidViewModel(application) {
         repository.insert(item)
         ImageHelper.saveBitmapToFileSystem(getApplication(),item.imageName, bitmap)
     }
+
+    fun deleteItem(item: Item, categoryImageName : String?) = viewModelScope.launch (Dispatchers.IO) {
+        repository.delete(item)
+        ImageHelper.deleteItemBitmapFromFileSystem(getApplication(), item.imageName, categoryImageName)
+    }
+
+    fun updateItem(item: Item) = viewModelScope.launch (Dispatchers.IO) {
+        repository.update(item)
+    }
 }
-
-//Use below code to have filter by queries
-//val searchByLiveData: LiveData<List<Item>>
-// private val filterLiveData: MutableLiveData<String>
-
-//in init:
-
-//        filterLiveData = MutableLiveData()
-//        searchByLiveData = Transformations.switchMap(filterLiveData) {
-//            repository.searchBy(it)
-//        }
-
-
-//
-//    fun setFilter(filter: String) {
-//        filterLiveData.value = filter
-//    }

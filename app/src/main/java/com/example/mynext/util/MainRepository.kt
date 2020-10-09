@@ -1,5 +1,6 @@
 package com.example.mynext.util
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import com.example.mynext.data.Dao
 import com.example.mynext.model.CategoriesWithItems
@@ -19,8 +20,22 @@ class MainRepository (private val dao: Dao) {
         dao.insertItem(item)
     }
 
+    suspend fun delete(item: Item) {
+        dao.delete(item)
+    }
+
     suspend fun deleteAll() {
         dao.deleteTableItem()
         dao.deleteTableCategories()
+    }
+
+    suspend fun populateDummyItems(context: Context) {
+        for (item : Item in DummyDataProvider(context).getDummyItemsList()) {
+            dao.insertItem(item)
+        }
+    }
+
+    suspend fun update(item: Item) {
+        dao.update(item)
     }
 }
