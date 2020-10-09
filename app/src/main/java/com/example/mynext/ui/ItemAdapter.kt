@@ -34,7 +34,7 @@ class ItemAdapter(private val itemClickListener: ItemClickListener) :
         with(holder.card) {
             itemcard_title_tv.text = item.itemTitle
             itemcard_description_tv.text = item.description
-            itemcard_recommendedby_tv.text = context.getString(R.string.recommended_by,item.recommender)
+            itemcard_recommendedby_tv.text = context.getString(R.string.recommended_by,item.recommender) //TODO should be size 0 if no recommender
 
             val dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault())
             val formattedDate = dateFormat.format(item.dateCreated)

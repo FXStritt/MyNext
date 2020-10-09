@@ -19,6 +19,7 @@ import com.example.mynext.model.Item
 import com.example.mynext.model.ItemsViewModel
 import com.example.mynext.model.SelectedCategoryViewModel
 import com.example.mynext.ui.ItemAdapter
+import com.example.mynext.ui.ItemDialogBuilder
 import com.example.mynext.util.ImageHelper
 import kotlinx.android.synthetic.main.dialog_item_details.view.*
 import kotlinx.android.synthetic.main.fragment_items.*
@@ -26,7 +27,7 @@ import java.text.DateFormat
 import java.util.*
 
 
-class ItemsFragment : Fragment(), ItemClickListener {
+class ItemsFragment : Fragment(), ItemClickListener, ItemDialogCallback {
 
     //TODO selectedCategory could be a new ViewModel with type CategoryWithItems, avoiding items loading and filtering in this fragment
     private val selectedCategory: SelectedCategoryViewModel by activityViewModels()
@@ -51,7 +52,6 @@ class ItemsFragment : Fragment(), ItemClickListener {
         //once fragment knows which category/items to display, initialize recyclerview
         selectedCategory.selected.observe(viewLifecycleOwner, { category ->
 
-            //TODO should the items view model actually be accessed from the recyclerview instead of passed from this fragment ?
             val itemAdapter = ItemAdapter(this)
 
             itemsViewModel.allItems.observe(viewLifecycleOwner) {
@@ -70,83 +70,26 @@ class ItemsFragment : Fragment(), ItemClickListener {
     }
 
     override fun onItemClickListener(item: Item) {
-        getItemDialog(item).show()
+        val itemDialogBuilder = ItemDialogBuilder(requireContext(), this)
+        val itemDialog = itemDialogBuilder.getItemDialog(item, selectedCategory.selected.value?.itemsName)
+        itemDialog.show()
+    }
+    override fun updateItem(item: Item) {
+        itemsViewModel.updateItem(item)
     }
 
-    private fun getItemDialog(item: Item) : Dialog {
-
-        val dialogBuilder = AlertDialog.Builder(activity)
-        val dialogView = View.inflate(context, R.layout.dialog_item_details, null)
-
-        setItemInformation(dialogView, item)
-
-        dialogBuilder.setView(dialogView)
-        val dialog = dialogBuilder.create()
-
-        setButtonsActions(dialogView, item, dialog) //Buttons actions are set after dialog creation as we need its reference to dismiss it
-
-        return dialog
-    }
-
-    private fun setItemInformation(dialogView: View, item: Item) {
-        with(dialogView) {
-            itemdialog_title_tv.text = item.itemTitle
-            itemdialog_description_tv.text = item.description
-            itemdialog_recommender_tv.text = context.getString(
-                R.string.recommended_by,
-                item.recommender
-            )
-
-            val dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault())
-            val formattedDate = dateFormat.format(item.dateCreated)
-            itemdialog_date_tv.text = context.getString(R.string.dateadded, formattedDate)
-
-            val bitmap = ImageHelper.retrieveBitmapFromFileSystem(context, item.imageName)
-            itemdialog_image_iv.setImageBitmap(bitmap)
-
-            if (item.done) {
-                itemdialog_markasdone_btn.setBackgroundColor(resources.getColor(R.color.colorAccent, context.theme))
-            } else {
-                itemdialog_markasdone_btn.setBackgroundColor(resources.getColor(R.color.colorNotDone, context.theme))
-            }
-        }
-    }
-
-    private fun setButtonsActions(dialogView: View, item: Item, dialog: Dialog) {
-        with(dialogView) {
-            itemdialog_findonline_btn.setOnClickListener {
-                //Example of generated url: https://www.google.com/search?q=Book+To+kill+a+Mockingbird
-                val url = "https://www.google.com/search?q=${selectedCategory.selected.value?.itemsName}+${item.itemTitle}"
-                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                context.startActivity(browserIntent)
-            }
-
-            itemdialog_markasdone_btn.setOnClickListener {
-                if (item.done) {
-                    item.done = false //TODO should this code be move to the ItemsViewModel?
-                    itemdialog_markasdone_btn.setBackgroundColor(resources.getColor(R.color.colorNotDone, context.theme))
-                } else {
-                    item.done = true
-                    itemdialog_markasdone_btn.setBackgroundColor(resources.getColor(R.color.colorAccent, context.theme))
-                }
-                itemsViewModel.updateItem(item)
-            }
-
-            itemdialog_edit_btn.setOnClickListener {
-                Log.d("MYTAG", "edit item")
-            }
-
-            itemdialog_delete_btn.setOnClickListener {
-                itemsViewModel.deleteItem(item, selectedCategory.selected.value?.imageName)
-                dialog.dismiss()
-                //Note: can use setTag() to set a tag, e.g (pressed for a first / second time)
-            }
-        }
+    override fun deleteItem(item: Item) {
+        itemsViewModel.deleteItem(item, selectedCategory.selected.value?.imageName)
     }
 }
 
 interface ItemClickListener {
     fun onItemClickListener(item: Item)
+}
+
+interface ItemDialogCallback {
+    fun updateItem(item: Item)
+    fun deleteItem(item: Item)
 }
 
 
