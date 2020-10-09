@@ -1,11 +1,6 @@
 package com.example.mynext.fragments
 
-import android.app.AlertDialog
-import android.app.Dialog
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,11 +15,7 @@ import com.example.mynext.model.ItemsViewModel
 import com.example.mynext.model.SelectedCategoryViewModel
 import com.example.mynext.ui.ItemAdapter
 import com.example.mynext.ui.ItemDialogBuilder
-import com.example.mynext.util.ImageHelper
-import kotlinx.android.synthetic.main.dialog_item_details.view.*
 import kotlinx.android.synthetic.main.fragment_items.*
-import java.text.DateFormat
-import java.util.*
 
 
 class ItemsFragment : Fragment(), ItemClickListener, ItemDialogCallback {
@@ -71,7 +62,7 @@ class ItemsFragment : Fragment(), ItemClickListener, ItemDialogCallback {
 
     override fun onItemClickListener(item: Item) {
         val itemDialogBuilder = ItemDialogBuilder(requireContext(), this)
-        val itemDialog = itemDialogBuilder.getItemDialog(item, selectedCategory.selected.value?.itemsName)
+        val itemDialog = itemDialogBuilder.getItemDialog(item = item, itemsName =  selectedCategory.selected.value?.itemsName)
         itemDialog.show()
     }
     override fun updateItem(item: Item) {
