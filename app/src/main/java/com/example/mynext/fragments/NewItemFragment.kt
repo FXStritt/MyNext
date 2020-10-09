@@ -4,6 +4,7 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,7 +50,7 @@ class NewItemFragment : Fragment() {
         })
 
         createitem_chooseimage_iv.setOnClickListener {
-            startActivityForResult(ImageHelper.getImageIntent(), ImageHelper.CHOOSE_IMAGE_REQUEST_CODE)
+            startActivityForResult(ImageHelper.getImageIntent(requireContext()), ImageHelper.CHOOSE_IMAGE_REQUEST_CODE)
         }
 
         createitem_cancel_btn.setOnClickListener {
@@ -102,8 +103,15 @@ class NewItemFragment : Fragment() {
 
         if (requestCode == ImageHelper.CHOOSE_IMAGE_REQUEST_CODE && resultCode == RESULT_OK
         ) {
-            val uri = data?.data ?: return
-            val bitmap = ImageHelper.getBitmapFromUri(uri, requireActivity())
+            val bitmap = if (data?.dataString != null) { //Image was taken in storage
+                val uri = data.data ?: return
+                ImageHelper.getBitmapFromUri(uri, requireActivity())
+
+            } else { //image was taken using camera
+                data?.extras?.get("data") as Bitmap
+                //TODO This only retrieves a thumbnail of the picture which is insufficient for our purposes. See link below to retrieve full picture
+                //https://developer.android.com/training/camera/photobasics
+            }
 
             bitmap?.let {
                 createitem_image_iv.setImageBitmap(bitmap)
@@ -111,6 +119,7 @@ class NewItemFragment : Fragment() {
                 imageIsDummy = false
             }
         }
+
     }
 
     private fun createItemFromFields() : Item {

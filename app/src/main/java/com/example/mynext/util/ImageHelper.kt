@@ -10,7 +10,6 @@ import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
-import android.util.Log
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -19,13 +18,25 @@ object ImageHelper {
 
     const val CHOOSE_IMAGE_REQUEST_CODE = 200
 
-    fun getImageIntent(): Intent {
-        val intent = Intent()
-        intent.type = "image/*"
-        intent.action = Intent.ACTION_GET_CONTENT
+    fun getImageIntent(context: Context): Intent {
 
-        //Android will find the best app to fulfill this intent
-        return Intent.createChooser(intent, "Choose image")
+        //TODO manage permissions & request camera access to user
+        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+
+        //TODO manage permissions & request camera access to user
+        val chooseImageIntent = Intent(Intent.ACTION_GET_CONTENT)
+        chooseImageIntent.type = "image/*"
+
+        val chooserIntent = Intent(Intent.ACTION_CHOOSER)
+        chooserIntent.putExtra(Intent.EXTRA_TITLE, "Choose image")
+
+        chooserIntent.putExtra(Intent.EXTRA_INTENT, chooseImageIntent)
+
+        if (takePictureIntent.resolveActivity(context.packageManager) != null) {
+            chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(takePictureIntent))
+        }
+
+        return chooserIntent
     }
 
     fun getBitmapFromUri(uri: Uri, currentActivity: Activity): Bitmap? {
@@ -86,7 +97,11 @@ object ImageHelper {
         }
     }
 
-    fun deleteItemBitmapFromFileSystem(context: Context, filename: String, categoryImageName: String?) {
+    fun deleteItemBitmapFromFileSystem(
+        context: Context,
+        filename: String,
+        categoryImageName: String?
+    ) {
         if (filename != categoryImageName) { //we do not want to delete the image if it is a category dummy image as this would impact other items.
             val file = getFileRef(context, filename)
             if (file.exists()) {
@@ -95,7 +110,7 @@ object ImageHelper {
         }
     }
 
-    private fun getFileRef(context: Context, filename: String) : File {
+    private fun getFileRef(context: Context, filename: String): File {
         val cw = ContextWrapper(context)
         val directory = cw.getDir("imageDir", Context.MODE_PRIVATE)
         return File(directory, "$filename.png")

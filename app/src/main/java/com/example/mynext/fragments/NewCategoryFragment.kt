@@ -45,7 +45,7 @@ class NewCategoryFragment : Fragment() {
         }
 
         createcateg_chooseimage_iv.setOnClickListener {
-            startActivityForResult(ImageHelper.getImageIntent(), ImageHelper.CHOOSE_IMAGE_REQUEST_CODE)
+            startActivityForResult(ImageHelper.getImageIntent(requireContext()), ImageHelper.CHOOSE_IMAGE_REQUEST_CODE)
         }
 
         createcateg_cancel_btn.setOnClickListener {
