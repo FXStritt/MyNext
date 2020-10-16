@@ -88,6 +88,7 @@ class NewCategoryFragment : Fragment() {
 
         if (requestCode == ImageHelper.CHOOSE_IMAGE_REQUEST_CODE && resultCode == Activity.RESULT_OK
         ) {
+            //TODO duplicate code with NewItemFragment. Move to ImageHelper class
             val uri = data?.data ?: return
             val bitmap = ImageHelper.getBitmapFromUri(uri, requireActivity())
 

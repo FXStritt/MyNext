@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.NewItemFragment"
     android:orientation="vertical"
     android:padding="2dp">
@@ -13,7 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="@string/new_item_title"
-        android:textSize="30sp"/>
+        android:textSize="30sp"
+        android:layout_marginTop="10dp"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -25,7 +27,8 @@
             android:layout_width="128dp"
             android:layout_height="128dp"
             android:src="@drawable/book"
-            android:contentDescription="@string/contentdescr_itemcard_image"/>
+            android:contentDescription="@string/contentdescr_itemcard_image"
+            android:scaleType="centerCrop"/>
 
         <ImageView
             android:id="@+id/createitem_chooseimage_iv"
@@ -33,7 +36,8 @@
             android:layout_height="48dp"
             android:src="@drawable/ic_baseline_camera_alt_24"
             android:layout_centerInParent="true"
-            android:contentDescription="@string/content_descr_itemcard_selectimage"/>
+            android:contentDescription="@string/content_descr_itemcard_selectimage"
+            app:tint="@color/colorAccent" />
 
     </RelativeLayout>
 
@@ -42,7 +46,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textCapSentences"
-        android:hint="@string/newitem_hint_title"/>
+        android:hint="@string/newitem_hint_title"
+        android:textColor="@android:color/white"/>
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/createitem_description_et"
@@ -50,14 +55,16 @@
         android:layout_height="wrap_content"
         android:maxLines="5"
         android:inputType="textCapSentences"
-        android:hint="@string/newitem_hint_description"/>
+        android:hint="@string/newitem_hint_description"
+        android:textColor="@android:color/white"/>
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/createitem_recommender_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textCapWords"
-        android:hint="@string/newitem_hint_recommended_by"/>
+        android:hint="@string/newitem_hint_recommended_by"
+        android:textColor="@android:color/white"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/createitem_errortext_tv"
@@ -78,14 +85,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
-        android:text="@string/cancel"/>
+        android:text="@string/cancel"
+        style="@style/CKButton"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/createitem_save_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:text="@string/save"/>
+            android:text="@string/save"
+            style="@style/CKButton"/>
 
     </LinearLayout>
 
