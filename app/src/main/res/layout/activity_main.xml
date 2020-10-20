@@ -17,7 +17,18 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@android:color/white"
             app:titleTextColor="@android:color/black"
-            app:popupTheme="@style/AppTheme.PopupOverlay"/>
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <TextView
+                android:id = "@+id/toolbarTitle"
+                style = "@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+                android:layout_width = "wrap_content"
+                android:layout_height = "match_parent"
+                android:gravity = "center_vertical"
+                android:text="@string/app_name"
+                android:textColor="@android:color/black"/>
+
+        </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
