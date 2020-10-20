@@ -13,11 +13,15 @@
 
         <action
             android:id="@+id/action_CategoriesFragment_to_ItemsFragment"
-            app:destination="@id/ItemsFragment" />
+            app:destination="@id/ItemsFragment"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
 
         <action
             android:id="@+id/action_CategoriesFragment_to_NewCategoryFragment"
-            app:destination="@id/NewCategoryFragment" />
+            app:destination="@id/NewCategoryFragment"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
 
     </fragment>
 
@@ -32,7 +36,9 @@
             app:destination="@id/CategoriesFragment" />
         <action
             android:id="@+id/action_ItemsFragment_to_NewItemsFragment"
-            app:destination="@id/NewItemsFragment" />
+            app:destination="@id/NewItemsFragment"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
 
     <fragment

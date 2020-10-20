@@ -32,7 +32,14 @@ class ItemsFragment : Fragment(), ItemClickListener, ItemDialogCallback {
 
         itemsViewModel = ViewModelProvider(this).get(ItemsViewModel::class.java)
 
-        return inflater.inflate(R.layout.fragment_items, container, false)
+        val view = inflater.inflate(R.layout.fragment_items, container, false)
+        val swipeGestureNavigator = SwipeGestureNavigator(findNavController())
+        view.setOnTouchListener { v, motionEvent ->
+            v.performClick()
+            swipeGestureNavigator.navigateUpIfSwipeRight(motionEvent)
+            true
+        }
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
