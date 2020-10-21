@@ -20,7 +20,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
 
-
         //Hide title and show textview instead in order to set a click listener on it
         supportActionBar?.setDisplayShowTitleEnabled(false)
         findViewById<TextView>(R.id.toolbarTitle).setOnClickListener {

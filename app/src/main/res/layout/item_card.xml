@@ -32,7 +32,9 @@
             android:layout_alignParentTop="true"
             android:layout_toEndOf="@+id/itemcard_image_iv"
             android:text="@string/dummytext_itemcard_title"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:maxLines="1"
+            android:ellipsize="end"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/itemcard_description_tv"
@@ -41,7 +43,9 @@
             android:layout_below="@+id/itemcard_title_tv"
             android:layout_toEndOf="@+id/itemcard_image_iv"
             android:text="@string/dummytext_itemcard_description"
-            android:textSize="15sp"/>
+            android:textSize="15sp"
+            android:maxLines="2"
+            android:ellipsize="end"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/itemcard_recommendedby_tv"

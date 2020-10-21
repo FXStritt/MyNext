@@ -21,7 +21,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/dummytext_categorycard_title"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:maxLines="1"
+            android:ellipsize="end"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/categorycard_number_tv"
