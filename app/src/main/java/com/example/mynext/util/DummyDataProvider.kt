@@ -41,7 +41,7 @@ class DummyDataProvider(val context: Context?) {
         return when (title) {
             "BrokenLink" -> BitmapFactory.decodeResource(
                 context?.resources,
-                R.drawable.baseline_broken_image_black_24dp
+                R.drawable.baseline_broken_image_white_24dp
             )
             "Books" -> BitmapFactory.decodeResource(context?.resources, R.drawable.book)
             "Movies" -> BitmapFactory.decodeResource(context?.resources, R.drawable.movies)

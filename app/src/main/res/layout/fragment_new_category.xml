@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,7 +13,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="@string/new_category"
-        android:textSize="30sp"/>
+        android:textSize="30sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -25,25 +28,26 @@
             android:layout_height="128dp"
             android:layout_centerHorizontal="true"
             android:src="@drawable/book"
-            android:contentDescription="@string/contentdescr_itemcard_image"/>
+            android:contentDescription="@string/contentdescr_itemcard_image"
+            android:scaleType="centerCrop"/>
 
         <ImageView
             android:id="@+id/createcateg_chooseimage_iv"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/ic_baseline_camera_alt_24"
             android:layout_centerInParent="true"
-            android:contentDescription="@string/content_descr_itemcard_selectimage"/>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_below="@+id/createcateg_image_iv"
-            android:text="@string/choose_default_image"/>
+            android:contentDescription="@string/content_descr_itemcard_selectimage"
+            android:src="@drawable/ic_baseline_camera_alt_24"
+            app:tint="@color/colorAccent" />
 
     </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/choose_default_image"/>
+
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/createcateg_categname_et"
@@ -52,7 +56,8 @@
         android:layout_marginTop="20sp"
         android:inputType="textCapWords"
         android:maxLines="1"
-        android:hint="@string/category_name"/>
+        android:hint="@string/category_name"
+        android:textColor="@android:color/white"/>
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/createcateg_itemsname_et"
@@ -60,7 +65,8 @@
         android:layout_height="wrap_content"
         android:inputType="textCapWords"
         android:maxLines="1"
-        android:hint="@string/items_name"/>
+        android:hint="@string/items_name"
+        android:textColor="@android:color/white"/>
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/createcateg_verb_et"
@@ -68,7 +74,8 @@
         android:layout_height="wrap_content"
         android:inputType="textCapWords"
         android:maxLines="1"
-        android:hint="@string/categ_action"/>
+        android:hint="@string/categ_action"
+        android:textColor="@android:color/white"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/createcateg_errortext_tv"
@@ -89,14 +96,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            android:text="@string/cancel"/>
+            android:text="@string/cancel"
+            style="@style/CKButton"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/createcateg_save_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:text="@string/save"/>
+            android:text="@string/save"
+            style="@style/CKButton"/>
 
     </LinearLayout>
 

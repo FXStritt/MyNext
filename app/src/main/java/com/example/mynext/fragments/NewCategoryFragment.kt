@@ -4,9 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -28,13 +26,23 @@ class NewCategoryFragment : Fragment() {
 
     private lateinit var allCategories: List<Category>
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_new_category, container, false)
+        val view = inflater.inflate(R.layout.fragment_new_category, container, false)
+        val swipeGestureNavigator = SwipeGestureNavigator(findNavController())
+        view.setOnTouchListener { v, motionEvent ->
+            v.performClick()
+            swipeGestureNavigator.navigateUpIfSwipeRight(motionEvent)
+            true
+        }
+        return view
     }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,6 +57,7 @@ class NewCategoryFragment : Fragment() {
         }
 
         createcateg_cancel_btn.setOnClickListener {
+            ContextHelper.hideSoftKeyboard(view,context)
             findNavController().navigateUp()
         }
 
@@ -88,6 +97,7 @@ class NewCategoryFragment : Fragment() {
 
         if (requestCode == ImageHelper.CHOOSE_IMAGE_REQUEST_CODE && resultCode == Activity.RESULT_OK
         ) {
+            //TODO duplicate code with NewItemFragment. Move to ImageHelper class
             val uri = data?.data ?: return
             val bitmap = ImageHelper.getBitmapFromUri(uri, requireActivity())
 
