@@ -107,8 +107,9 @@ object ImageHelper {
 
             val resizedBitmap = resizeBitmapToMax480by480(bitmap)
 
+            //TODO determine file compress quality based on size
             FileOutputStream(file).use {
-                resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 50, it)
+                resizedBitmap.compress(Bitmap.CompressFormat.PNG, 40, it)
                 it.flush()
             }
         }
@@ -139,6 +140,7 @@ object ImageHelper {
 
         return if (file.exists()) {
             BitmapFactory.decodeFile(file.absolutePath)
+                ?: DummyDataProvider(context).getDummyBitmap("BrokenLink")
         } else {
             DummyDataProvider(context).getDummyBitmap("BrokenLink")
         }

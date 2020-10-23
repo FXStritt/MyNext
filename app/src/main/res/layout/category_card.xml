@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:background="@drawable/background">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/categorycard_title_tv"
@@ -20,7 +21,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/dummytext_categorycard_title"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:maxLines="1"
+            android:ellipsize="end"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/categorycard_number_tv"
@@ -46,14 +49,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/dummytext_categorycard_numdone" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/categorycard_variationdone_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/dummytext_categorycard_var"
-            android:textColor="@color/colorIncrease" />
 
     </LinearLayout>
 
