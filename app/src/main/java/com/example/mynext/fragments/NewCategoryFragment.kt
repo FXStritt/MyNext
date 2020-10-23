@@ -26,11 +26,7 @@ class NewCategoryFragment : Fragment() {
 
     private lateinit var allCategories: List<Category>
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_new_category, container, false)
         val swipeGestureNavigator = SwipeGestureNavigator(findNavController())
@@ -53,7 +49,7 @@ class NewCategoryFragment : Fragment() {
         }
 
         createcateg_chooseimage_iv.setOnClickListener {
-            startActivityForResult(ImageHelper.getImageIntent(), ImageHelper.CHOOSE_IMAGE_REQUEST_CODE)
+            startActivityForResult(ImageHelper.getImageIntent(requireContext()), ImageHelper.CHOOSE_IMAGE_REQUEST_CODE)
         }
 
         createcateg_cancel_btn.setOnClickListener {
@@ -69,6 +65,7 @@ class NewCategoryFragment : Fragment() {
                 val finalImage = chosenImage ?: DummyDataProvider(context).getDummyBitmap("Books") //Dummy bitmap in case of no images chosen
 
                 categoryViewModel.insert(newCategory, finalImage) //TODO insert error should trigger deletion of image saved on Filesystem
+                ImageHelper.deleteTempImageFileIfExist(requireContext()) //temp image returned by camera no longer needed
 
                 ContextHelper.hideSoftKeyboard(view,context)
 
@@ -97,9 +94,12 @@ class NewCategoryFragment : Fragment() {
 
         if (requestCode == ImageHelper.CHOOSE_IMAGE_REQUEST_CODE && resultCode == Activity.RESULT_OK
         ) {
-            //TODO duplicate code with NewItemFragment. Move to ImageHelper class
-            val uri = data?.data ?: return
-            val bitmap = ImageHelper.getBitmapFromUri(uri, requireActivity())
+            val bitmap = if (data?.dataString != null) { //Image was taken in storage
+                val uri = data.data ?: return
+                ImageHelper.getBitmapFromUri(uri, requireActivity())
+            } else { //image was taken using camera
+                ImageHelper.getImageTakenByCamera(requireActivity())
+            }
 
             bitmap.let {
                 createcateg_image_iv.setImageBitmap(bitmap)
@@ -128,7 +128,6 @@ class NewCategoryFragment : Fragment() {
 
         return Category(name, itemsName, verb, imageName)
     }
-
 
     private fun showErrorMessage() {
 
