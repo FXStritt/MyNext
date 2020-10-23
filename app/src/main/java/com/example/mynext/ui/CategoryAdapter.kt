@@ -9,7 +9,7 @@ import com.example.mynext.fragments.CategoryClickListener
 import com.example.mynext.model.CategoriesWithItems
 import com.example.mynext.model.Category
 import kotlinx.android.synthetic.main.category_card.view.*
-import java.lang.IndexOutOfBoundsException
+import java.time.LocalDateTime
 
 class CategoryAdapter(
     private val categoryClickListener: CategoryClickListener,
@@ -49,13 +49,26 @@ class CategoryAdapter(
         if (getItemViewType(position) == TYPE_CATEGORY) {
 
             val category = categoriesWithItems[position].category
-            holder.card.categorycard_title_tv.text = category.title
-
             val text = "to ${category.verb}"
-            holder.card.categorycard_todo_tv.text = text
+            val itemsToDoCount = categoriesWithItems[position]
+                .items
+                .stream()
+                .filter {!it.done}
+                .count()
+            val itemsDoneThisMonth = categoriesWithItems[position]
+                .items
+                .stream()
+                .filter { it.done
+                        && it.dateDone.month == LocalDateTime.now().month
+                        && it.dateDone.year == LocalDateTime.now().year }
+                .count()
 
-            val itemsCount = categoriesWithItems[position].items.size
-            holder.card.categorycard_number_tv.text = itemsCount.toString()
+            with(holder.card) {
+                categorycard_title_tv.text = category.title
+                categorycard_todo_tv.text = text
+                categorycard_number_tv.text = itemsToDoCount.toString()
+                categorycard_numberdone_tv.text  = context.getString(R.string.categorycard_numdone,itemsDoneThisMonth)
+            }
 
         }
     }

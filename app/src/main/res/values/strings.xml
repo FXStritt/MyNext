@@ -12,7 +12,6 @@
     <string name="dummytext_categorycard_title">Books</string>
     <string name="dummytext_categorycard_number">0</string>
     <string name="dummytext_categorycard_todo">to %1$s</string>
-    <string name="dummytext_categorycard_numdone">3 read this month.</string>
     <string name="dummytext_categorycard_var">+33%</string>
     <string name="dummytext_items_title">Books to read</string>
     <string name="dummytext_itemcard_title">The year of the flood</string>
@@ -37,6 +36,7 @@
     <string name="items_name">Items name (e.g Book)</string>
     <string name="categ_action">Action (e.g read)</string>
     <string name="new_category_fragment_label">NewCategoryFragment</string>
+    <string name="categorycard_numdone">%d done this month.</string>
 
     <string name="recommended_by">Recommended by %1$s</string>
     <string name="dateadded">Added %1$s</string>

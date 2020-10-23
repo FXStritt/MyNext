@@ -1,7 +1,6 @@
 package com.example.mynext.ui
 
 import android.graphics.Color
-import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +10,9 @@ import com.example.mynext.fragments.ItemClickListener
 import com.example.mynext.model.Item
 import com.example.mynext.util.ImageHelper
 import kotlinx.android.synthetic.main.item_card.view.*
-import java.text.DateFormat
-import java.util.*
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
+
 
 class ItemAdapter(private val itemClickListener: ItemClickListener) :
     RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
@@ -35,20 +35,23 @@ class ItemAdapter(private val itemClickListener: ItemClickListener) :
         with(holder.card) {
             itemcard_title_tv.text = item.itemTitle
             itemcard_description_tv.text = item.description
-            itemcard_recommendedby_tv.text = context.getString(R.string.recommended_by,item.recommender) //TODO should be size 0 if no recommender
+            itemcard_recommendedby_tv.text = context.getString(
+                R.string.recommended_by,
+                item.recommender
+            ) //TODO should be size 0 if no recommender
 
-            val dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault())
-            val formattedDate = dateFormat.format(item.dateCreated)
+            val formatter: DateTimeFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
+            val formattedDate: String = item.dateCreated.format(formatter)
             itemcard_dateadded_tv.text = context.getString(R.string.dateadded, formattedDate)
 
-            val bitmap = ImageHelper.retrieveBitmapFromFileSystem(context,item.imageName)
+            val bitmap = ImageHelper.retrieveBitmapFromFileSystem(context, item.imageName)
             itemcard_image_iv.setImageBitmap(bitmap)
 
             grayOutFieldsIfItemDone(this, item.done)
         }
     }
 
-    private fun grayOutFieldsIfItemDone(view: View, itemDone : Boolean) {
+    private fun grayOutFieldsIfItemDone(view: View, itemDone: Boolean) {
         with(view) {
             itemcard_title_tv.isEnabled = !itemDone
             itemcard_description_tv.isEnabled = !itemDone

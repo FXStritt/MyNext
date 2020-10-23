@@ -4,19 +4,20 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.room.TypeConverter
 import java.io.ByteArrayOutputStream
-import java.util.*
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 
 object TypeConverter {
 
     @TypeConverter
     @JvmStatic //for room to use as regular static functions
-    fun timestampToDate(value: Long) : Date {
-        return Date(value)
+    fun timestampToDate(value: Long) : LocalDateTime {
+        return LocalDateTime.ofEpochSecond(value,0, ZoneOffset.UTC)
     }
     @TypeConverter
     @JvmStatic
-    fun dateToTimestamp(date: Date) : Long {
-        return date.time
+    fun dateToTimestamp(date: LocalDateTime) : Long {
+        return date.toEpochSecond(ZoneOffset.UTC)
     }
 
     @TypeConverter

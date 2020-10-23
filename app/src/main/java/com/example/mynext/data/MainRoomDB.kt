@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.mynext.model.Category
 import com.example.mynext.model.Item
-import com.example.mynext.util.RoomHelper
+import com.example.mynext.util.RoomNames
 
 @Database(entities = arrayOf(Category::class, Item::class), version = 1, exportSchema = false) //TODO consider implementing database migration
 @TypeConverters(TypeConverter::class)
@@ -28,7 +28,7 @@ abstract class MainRoomDB : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     MainRoomDB::class.java,
-                    RoomHelper.dbNamed
+                    RoomNames.dbNamed
                 ).build()
                 INSTANCE = instance
                 return instance
