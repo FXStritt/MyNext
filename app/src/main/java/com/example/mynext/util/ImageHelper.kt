@@ -10,30 +10,70 @@ import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
+import android.util.Log
+import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 
+
 object ImageHelper {
 
     const val CHOOSE_IMAGE_REQUEST_CODE = 200
+    private const val TEMP_FILE_NAME = "temp_file"
+
+    @Throws(IOException::class)
+    private fun createTempImageFile(context: Context): File {
+        // Create an image file name
+        val storageDir: File = context.filesDir
+        return File(storageDir, "$TEMP_FILE_NAME.png")
+    }
+
+    fun deleteTempImageFileIfExist(context: Context): Boolean {
+        return try {
+            val storageDir = context.filesDir
+            val fileToDelete = File(storageDir, "$TEMP_FILE_NAME.png")
+            if (fileToDelete.exists()) {
+                fileToDelete.delete()
+            }
+            true
+        } catch (e: IOException) {
+            false
+        }
+    }
 
     fun getImageIntent(context: Context): Intent {
 
         //TODO manage permissions & request camera access to user
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-
-        //TODO manage permissions & request camera access to user
         val chooseImageIntent = Intent(Intent.ACTION_GET_CONTENT)
         chooseImageIntent.type = "image/*"
 
         val chooserIntent = Intent(Intent.ACTION_CHOOSER)
         chooserIntent.putExtra(Intent.EXTRA_TITLE, "Choose image")
-
         chooserIntent.putExtra(Intent.EXTRA_INTENT, chooseImageIntent)
 
-        if (takePictureIntent.resolveActivity(context.packageManager) != null) {
-            chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(takePictureIntent))
+        takePictureIntent.resolveActivity(context.packageManager)?.also {
+            val photoFile: File? = try {
+                createTempImageFile(context)
+            } catch (ex: IOException) {
+                null
+            }
+
+            photoFile?.also {
+
+                val photoFileUri = FileProvider.getUriForFile(
+                    context,
+                    "com.example.mynext.fileprovider",
+                    it
+                )
+
+                //If there is no activity to capture a picture or there was an error creating a tempfile to store the taken picture,
+                //then this code will not be executed and the chooser will not contain the option to take a camera picture
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoFileUri)
+                chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(takePictureIntent))
+            }
         }
 
         return chooserIntent
@@ -53,6 +93,13 @@ object ImageHelper {
         }
     }
 
+    //Image taken by camera is always stored in same directory under same filename
+    fun getImageTakenByCamera(currentActivity: Activity): Bitmap? {
+        val storageDir: File = currentActivity.filesDir
+        val file = File(storageDir, "$TEMP_FILE_NAME.png")
+        return getBitmapFromUri(file.toUri(), currentActivity)
+    }
+
     fun saveBitmapToFileSystem(context: Context, filename: String, bitmap: Bitmap) {
         val file = getFileRef(context, filename)
 
@@ -61,7 +108,7 @@ object ImageHelper {
             val resizedBitmap = resizeBitmapToMax480by480(bitmap)
 
             FileOutputStream(file).use {
-                resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 25, it)
+                resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 50, it)
                 it.flush()
             }
         }
@@ -114,7 +161,5 @@ object ImageHelper {
         val cw = ContextWrapper(context)
         val directory = cw.getDir("imageDir", Context.MODE_PRIVATE)
         return File(directory, "$filename.png")
-
     }
-
 }

@@ -4,7 +4,6 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,12 +44,18 @@ class NewItemFragment : Fragment() {
         //Set main title (New itemXYZ) and dummy image of category
         selectedCategory.selected.observe(viewLifecycleOwner, { category ->
             createitem_maintitle_tv.text = getString(R.string.new_item_title, category.itemsName)
-            chosenImage = ImageHelper.retrieveBitmapFromFileSystem(requireContext(), category.imageName)
+            chosenImage = ImageHelper.retrieveBitmapFromFileSystem(
+                requireContext(),
+                category.imageName
+            )
             createitem_image_iv.setImageBitmap(chosenImage)
         })
 
         createitem_chooseimage_iv.setOnClickListener {
-            startActivityForResult(ImageHelper.getImageIntent(requireContext()), ImageHelper.CHOOSE_IMAGE_REQUEST_CODE)
+            startActivityForResult(
+                ImageHelper.getImageIntent(requireContext()),
+                ImageHelper.CHOOSE_IMAGE_REQUEST_CODE
+            )
         }
 
         createitem_cancel_btn.setOnClickListener {
@@ -65,6 +70,7 @@ class NewItemFragment : Fragment() {
                 val newItem = createItemFromFields()
 
                 itemsViewModel.insert(newItem, chosenImage)
+                ImageHelper.deleteTempImageFileIfExist(requireContext()) //temp image returned by camera no longer needed
 
                 ContextHelper.hideSoftKeyboard(view, context)
 
@@ -88,12 +94,17 @@ class NewItemFragment : Fragment() {
 
         with(createitem_errortext_tv) {
             if (this.text.trim().isEmpty()) {
-                this.text = getString(R.string.newitem_error_message,
+                this.text = getString(
+                    R.string.newitem_error_message,
                     selectedCategory.selected.value?.itemsName?.toLowerCase(Locale.ROOT)
                 )
             } else {
-                this.startAnimation(AnimationUtils.loadAnimation(context,
-                    R.anim.blink_error))
+                this.startAnimation(
+                    AnimationUtils.loadAnimation(
+                        context,
+                        R.anim.blink_error
+                    )
+                )
             }
         }
     }
@@ -106,20 +117,16 @@ class NewItemFragment : Fragment() {
             val bitmap = if (data?.dataString != null) { //Image was taken in storage
                 val uri = data.data ?: return
                 ImageHelper.getBitmapFromUri(uri, requireActivity())
-
             } else { //image was taken using camera
-                data?.extras?.get("data") as Bitmap
-                //TODO This only retrieves a thumbnail of the picture which is insufficient for our purposes. See link below to retrieve full picture
-                //https://developer.android.com/training/camera/photobasics
+                ImageHelper.getImageTakenByCamera(requireActivity())
             }
 
             bitmap?.let {
-                createitem_image_iv.setImageBitmap(bitmap)
+                createitem_image_iv.setImageBitmap(it)
                 chosenImage = bitmap
                 imageIsDummy = false
             }
         }
-
     }
 
     private fun createItemFromFields() : Item {
@@ -134,6 +141,6 @@ class NewItemFragment : Fragment() {
             imageName = selectedCategory.selected.value?.imageName.toString()
         }
 
-        return Item(title, description, recommender, imageName , category ?: "NA", Date())
+        return Item(title, description, recommender, imageName, category ?: "NA", Date())
     }
 }
