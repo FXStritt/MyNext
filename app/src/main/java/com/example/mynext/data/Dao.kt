@@ -6,20 +6,19 @@ import androidx.room.Dao
 import com.example.mynext.model.CategoriesWithItems
 import com.example.mynext.model.Category
 import com.example.mynext.model.Item
-import com.example.mynext.util.RoomHelper
 
 @Dao
 interface Dao {
 
-   @Query("DELETE FROM ${RoomHelper.itemTable}" )
+   @Query("DELETE FROM item_table" )
    suspend fun deleteTableItem()
-   @Query("DELETE FROM ${RoomHelper.categoryTable}" )
+   @Query("DELETE FROM category_table" )
    suspend fun deleteTableCategories()
 
-   @Query("SELECT * FROM ${RoomHelper.categoryTable}")
+   @Query("SELECT * FROM category_table")
    fun getAllCategories(): LiveData<List<Category>>
 
-   @Query("SELECT * FROM ${RoomHelper.itemTable} ORDER BY done, dateCreated DESC")
+   @Query("SELECT * FROM item_table ORDER BY done, CASE WHEN done=0 THEN dateCreated ELSE dateDone END DESC")
    fun getAllItems(): LiveData<List<Item>>
 
    @Transaction

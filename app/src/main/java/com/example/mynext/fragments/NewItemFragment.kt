@@ -4,7 +4,10 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.view.*
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -17,6 +20,7 @@ import com.example.mynext.model.SelectedCategoryViewModel
 import com.example.mynext.util.ContextHelper
 import com.example.mynext.util.ImageHelper
 import kotlinx.android.synthetic.main.fragment_new_item.*
+import java.time.LocalDateTime
 import java.util.*
 
 class NewItemFragment : Fragment() {
@@ -146,6 +150,8 @@ class NewItemFragment : Fragment() {
             imageName = selectedCategory.selected.value?.imageName.toString()
         }
 
-        return Item(title, description, recommender, imageName, category ?: "NA", Date())
+        Log.d("MYTAG",Date().time.toString())
+
+        return Item(title, description, recommender, imageName, category ?: "NA", LocalDateTime.now())
     }
 }

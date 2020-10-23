@@ -6,17 +6,17 @@ import android.graphics.BitmapFactory
 import com.example.mynext.R
 import com.example.mynext.model.Category
 import com.example.mynext.model.Item
-import java.util.*
+import java.time.LocalDateTime
 
 class DummyDataProvider(val context: Context?) {
 
     fun getDummyItemsList(): List<Item> {
         return mutableListOf(
-            Item("Movie 1", "great movie", "John", "dummyMovies", "Movies", Date()),
-            Item("Movie 2", "bad movie", "Mike", "dummyMovies", "Movies", Date()),
-            Item("Book 1", "great book", "John", "dummyBooks", "Books", Date()),
-            Item("Book 2", "bad book", "Mike", "dummyBooks", "Books", Date()),
-            Item("Place 1", "great place", "Mike", "dummyPlaces", "Places", Date())
+            Item("Movie 1", "great movie", "John", "dummyMovies", "Movies", LocalDateTime.now()),
+            Item("Movie 2", "bad movie", "Mike", "dummyMovies", "Movies", LocalDateTime.now()),
+            Item("Book 1", "great book", "John", "dummyBooks", "Books", LocalDateTime.now()),
+            Item("Book 2", "bad book", "Mike", "dummyBooks", "Books", LocalDateTime.now()),
+            Item("Place 1", "great place", "Mike", "dummyPlaces", "Places", LocalDateTime.now())
         )
     }
 

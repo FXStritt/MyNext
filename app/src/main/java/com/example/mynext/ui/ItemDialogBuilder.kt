@@ -12,8 +12,9 @@ import com.example.mynext.model.Item
 import com.example.mynext.util.ImageHelper
 import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.dialog_item_details.view.*
-import java.text.DateFormat
-import java.util.*
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 
 class ItemDialogBuilder(val context: Context, private val itemDialogCallback: ItemDialogCallback) {
 
@@ -46,8 +47,8 @@ class ItemDialogBuilder(val context: Context, private val itemDialogCallback: It
                 item.recommender
             )
 
-            val dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault())
-            val formattedDate = dateFormat.format(item.dateCreated)
+            val formatter: DateTimeFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
+            val formattedDate: String = item.dateCreated.format(formatter)
             itemdialog_date_tv.text = context.getString(R.string.dateadded, formattedDate)
 
             val bitmap = ImageHelper.retrieveBitmapFromFileSystem(context, item.imageName)
@@ -94,6 +95,7 @@ class ItemDialogBuilder(val context: Context, private val itemDialogCallback: It
                     setIconResource(R.drawable.ic_baseline_check_box_outline_blank_24)
                 } else {
                     item.done = true
+                    item.dateDone = LocalDateTime.now()
                     setBackgroundColor(resources.getColor(R.color.colorDone, context.theme))
                     setIconResource(R.drawable.ic_baseline_check_box_24)
                 }
