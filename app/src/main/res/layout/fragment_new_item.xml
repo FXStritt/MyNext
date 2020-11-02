@@ -55,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxLines="5"
-        android:inputType="textMultiLine"
+        android:inputType="textCapSentences|textMultiLine"
         android:hint="@string/newitem_hint_description"
         android:textColor="@android:color/white"/>
 
