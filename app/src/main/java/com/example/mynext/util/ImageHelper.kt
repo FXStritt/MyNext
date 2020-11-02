@@ -106,7 +106,6 @@ object ImageHelper {
 
             val resizedBitmap = resizeBitmapToMax480by480(bitmap)
 
-            //TODO determine file compress quality based on size
             FileOutputStream(file).use {
                 resizedBitmap.compress(Bitmap.CompressFormat.PNG, 40, it)
                 it.flush()

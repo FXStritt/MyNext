@@ -35,10 +35,11 @@ class ItemAdapter(private val itemClickListener: ItemClickListener) :
         with(holder.card) {
             itemcard_title_tv.text = item.itemTitle
             itemcard_description_tv.text = item.description
-            itemcard_recommendedby_tv.text = context.getString(
-                R.string.recommended_by,
-                item.recommender
-            ) //TODO should be size 0 if no recommender
+            itemcard_recommendedby_tv.text = if (item.recommender.isNotBlank()) {
+                context.getString(R.string.recommended_by, item.recommender)
+            } else {
+                context.getString(R.string.recommended_by, "-")
+            }
 
             val formatter: DateTimeFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
             val formattedDate: String = item.dateCreated.format(formatter)
