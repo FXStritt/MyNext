@@ -10,7 +10,6 @@ import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
-import android.util.Log
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import java.io.File
