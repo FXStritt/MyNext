@@ -34,4 +34,11 @@ class ItemsViewModel(application: Application) : AndroidViewModel(application) {
     fun updateItem(item: Item) = viewModelScope.launch (Dispatchers.IO) {
         repository.update(item)
     }
+
+    fun updateItemWithImage(item: Item, bitmap: Bitmap,
+                            filenameToDelete : String, categoryImageName : String?) = viewModelScope.launch (Dispatchers.IO) {
+        repository.update(item)
+        ImageHelper.saveBitmapToFileSystem(getApplication(),item.imageName, bitmap)
+        ImageHelper.deleteItemBitmapFromFileSystem(getApplication(),filenameToDelete, categoryImageName)
+    }
 }

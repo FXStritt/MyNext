@@ -6,9 +6,11 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.view.View
+import androidx.navigation.NavController
 import com.example.mynext.R
 import com.example.mynext.fragments.ItemDialogCallback
 import com.example.mynext.model.Item
+import com.example.mynext.model.SelectedItemViewModel
 import com.example.mynext.util.ImageHelper
 import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.dialog_item_details.view.*
@@ -16,7 +18,8 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
-class ItemDialogBuilder(val context: Context, private val itemDialogCallback: ItemDialogCallback) {
+class ItemDialogBuilder(val context: Context, private val itemDialogCallback: ItemDialogCallback,
+                        private val navController: NavController, private val selectedItem: SelectedItemViewModel) {
 
     fun getItemDialog(item: Item, itemsName: String?): Dialog {
 
@@ -107,7 +110,9 @@ class ItemDialogBuilder(val context: Context, private val itemDialogCallback: It
 
         with(dialogView.itemdialog_edit_btn) {
             setOnClickListener {
-                //TODO Implement edit action
+                selectedItem.select(item)
+                navController.navigate(R.id.action_ItemsFragment_to_NewItemsFragment)
+                dialog.dismiss()
                 resetDeleteButton(dialogView.itemdialog_delete_btn)
             }
         }

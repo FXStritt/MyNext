@@ -11,9 +11,9 @@ data class Item(
     @ColumnInfo val itemTitle: String,
     @ColumnInfo val description: String,
     @ColumnInfo val recommender: String,
-    @ColumnInfo val imageName: String,
+    @ColumnInfo var imageName: String,
     @ColumnInfo val categoryId: String,
-    @ColumnInfo val dateCreated: LocalDateTime = LocalDateTime.now(),
+    @ColumnInfo var dateCreated: LocalDateTime = LocalDateTime.now(),
     @ColumnInfo var done: Boolean = false,
     @ColumnInfo var dateDone : LocalDateTime = LocalDateTime.now(), //Boolean "done" will determine if we take this date into account, so default value is OK
 ) {

@@ -4,11 +4,11 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
@@ -17,23 +17,23 @@ import com.example.mynext.R
 import com.example.mynext.model.Item
 import com.example.mynext.model.ItemsViewModel
 import com.example.mynext.model.SelectedCategoryViewModel
+import com.example.mynext.model.SelectedItemViewModel
 import com.example.mynext.util.ContextHelper
 import com.example.mynext.util.ImageHelper
 import kotlinx.android.synthetic.main.fragment_new_item.*
 import java.time.LocalDateTime
+import java.time.ZoneOffset
 import java.util.*
 
 class NewItemFragment : Fragment() {
 
     private val selectedCategory: SelectedCategoryViewModel by activityViewModels()
+    private val itemToUpdate : SelectedItemViewModel by activityViewModels()
     private lateinit var chosenImage: Bitmap
     private var imageIsDummy = true
     private lateinit var itemsViewModel: ItemsViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         itemsViewModel = ViewModelProvider(this).get(ItemsViewModel::class.java)
 
         val view = inflater.inflate(R.layout.fragment_new_item, container, false)
@@ -49,13 +49,27 @@ class NewItemFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //Set main title (New itemXYZ) and dummy image of category
         selectedCategory.selected.observe(viewLifecycleOwner, { category ->
-            createitem_maintitle_tv.text = getString(R.string.new_item_title, category.itemsName)
-            chosenImage = ImageHelper.retrieveBitmapFromFileSystem(
-                requireContext(),
-                category.imageName
-            )
+
+            if (itemToUpdate.selected.value != null) { //if an item is selected, we initialize the layout with its content
+                val item = itemToUpdate.selected.value
+                createitem_maintitle_tv.text = getString(R.string.update_item_title, category.itemsName)
+                createitem_title_et.setText(item?.itemTitle, TextView.BufferType.EDITABLE)
+                createitem_description_et.setText(item?.description, TextView.BufferType.EDITABLE)
+                createitem_recommender_et.setText(item?.recommender, TextView.BufferType.EDITABLE)
+                chosenImage = ImageHelper.retrieveBitmapFromFileSystem(
+                    requireContext(),
+                    item?.imageName ?: "null"
+                )
+            } else { //otherwise we initialize the layout with default content
+                createitem_maintitle_tv.text =
+                    getString(R.string.new_item_title, category.itemsName)
+                chosenImage = ImageHelper.retrieveBitmapFromFileSystem(
+                    requireContext(),
+                    category.imageName
+                )
+            }
+
             createitem_image_iv.setImageBitmap(chosenImage)
         })
 
@@ -76,13 +90,17 @@ class NewItemFragment : Fragment() {
             if (allFieldsValid() && categorySelected()) {
                 createitem_errortext_tv.text = "" //Clear any potential error messages
 
-                val newItem = createItemFromFields()
+                if (itemToUpdate.selected.value?.itemId != null) {
+                    updateItemFromFields()
+                } else {
+                    val newItem = createItemFromFields()
+                    itemsViewModel.insert(newItem, chosenImage)
+                }
 
-                itemsViewModel.insert(newItem, chosenImage)
+
                 ImageHelper.deleteTempImageFileIfExist(requireContext()) //temp image returned by camera no longer needed
 
                 ContextHelper.hideSoftKeyboard(view, context)
-
                 findNavController().navigateUp()
             } else {
                 showErrorMessage()
@@ -134,6 +152,7 @@ class NewItemFragment : Fragment() {
                 createitem_image_iv.setImageBitmap(it)
                 chosenImage = bitmap
                 imageIsDummy = false
+                itemToUpdate.imageWasChanged() //in case there is an item to update, we note that its image was changed
             }
         }
     }
@@ -143,15 +162,31 @@ class NewItemFragment : Fragment() {
         val description = createitem_description_et.text.toString().trim()
         val recommender = createitem_recommender_et.text.toString().trim()
         val category = selectedCategory.selected.value?.title
-        val date = Date()
+        val date = LocalDateTime.now()
 
-        var imageName = title + date.time
+        var imageName = title + date.toEpochSecond(ZoneOffset.UTC)
         if (imageIsDummy && selectedCategory.selected.value?.imageName != null) {
             imageName = selectedCategory.selected.value?.imageName.toString()
         }
 
-        Log.d("MYTAG",Date().time.toString())
-
         return Item(title, description, recommender, imageName, category ?: "NA", LocalDateTime.now())
+    }
+
+    private fun updateItemFromFields() {
+        val updatedItem = createItemFromFields()
+
+        itemToUpdate.selected.value?.let {
+            updatedItem.itemId = it.itemId
+            updatedItem.dateCreated = it.dateCreated
+
+            if (itemToUpdate.imageWasChanged) {
+                val oldImageFilenameToDelete = it.imageName
+                val categoryImageName = selectedCategory.selected.value?.imageName
+                itemsViewModel.updateItemWithImage(updatedItem, chosenImage, oldImageFilenameToDelete, categoryImageName)
+            } else {
+                updatedItem.imageName = it.imageName
+                itemsViewModel.updateItem(updatedItem)
+            }
+        }
     }
 }

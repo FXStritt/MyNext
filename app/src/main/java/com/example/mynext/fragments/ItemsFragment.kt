@@ -13,6 +13,7 @@ import com.example.mynext.R
 import com.example.mynext.model.Item
 import com.example.mynext.model.ItemsViewModel
 import com.example.mynext.model.SelectedCategoryViewModel
+import com.example.mynext.model.SelectedItemViewModel
 import com.example.mynext.ui.ItemAdapter
 import com.example.mynext.ui.ItemDialogBuilder
 import kotlinx.android.synthetic.main.fragment_items.*
@@ -22,15 +23,13 @@ class ItemsFragment : Fragment(), ItemClickListener, ItemDialogCallback {
 
     //TODO selectedCategory could be a new ViewModel with type CategoryWithItems, avoiding items loading and filtering in this fragment
     private val selectedCategory: SelectedCategoryViewModel by activityViewModels()
+    private val selectedItem : SelectedItemViewModel by activityViewModels()
     private lateinit var itemsViewModel: ItemsViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         itemsViewModel = ViewModelProvider(this).get(ItemsViewModel::class.java)
+        selectedItem.select(null) //ensures no item "selected" when we get / return to this fragment
 
         val view = inflater.inflate(R.layout.fragment_items, container, false)
         val swipeGestureNavigator = SwipeGestureNavigator(findNavController())
@@ -68,7 +67,7 @@ class ItemsFragment : Fragment(), ItemClickListener, ItemDialogCallback {
     }
 
     override fun onItemClickListener(item: Item) {
-        val itemDialogBuilder = ItemDialogBuilder(requireContext(), this)
+        val itemDialogBuilder = ItemDialogBuilder(requireContext(), this, findNavController(), selectedItem)
         val itemDialog = itemDialogBuilder.getItemDialog(item = item, itemsName =  selectedCategory.selected.value?.itemsName)
         itemDialog.show()
     }

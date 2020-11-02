@@ -22,11 +22,7 @@ class CategoriesFragment : Fragment(), CategoryClickListener {
     private val selectedCategory: SelectedCategoryViewModel by activityViewModels()
     private lateinit var categoriesViewModel: CategoriesViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         categoriesViewModel = ViewModelProvider(this).get(CategoriesViewModel::class.java)
 
         return inflater.inflate(R.layout.fragment_category, container, false)
