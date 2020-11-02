@@ -6,14 +6,9 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.view.View
-import androidx.fragment.app.findFragment
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import com.example.mynext.R
 import com.example.mynext.fragments.ItemDialogCallback
-import com.example.mynext.fragments.ItemsFragment
 import com.example.mynext.model.Item
 import com.example.mynext.model.SelectedItemViewModel
 import com.example.mynext.util.ImageHelper

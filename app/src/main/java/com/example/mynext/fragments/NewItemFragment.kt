@@ -90,7 +90,6 @@ class NewItemFragment : Fragment() {
             if (allFieldsValid() && categorySelected()) {
                 createitem_errortext_tv.text = "" //Clear any potential error messages
 
-                //TODO Manage image deletion upon update
                 if (itemToUpdate.selected.value?.itemId != null) {
                     updateItemFromFields()
                 } else {
@@ -153,6 +152,7 @@ class NewItemFragment : Fragment() {
                 createitem_image_iv.setImageBitmap(it)
                 chosenImage = bitmap
                 imageIsDummy = false
+                itemToUpdate.imageWasChanged() //in case there is an item to update, we note that its image was changed
             }
         }
     }
@@ -173,12 +173,20 @@ class NewItemFragment : Fragment() {
     }
 
     private fun updateItemFromFields() {
-        //TODO Manage image change, creation & deletion
         val updatedItem = createItemFromFields()
-        val itemId = itemToUpdate.selected.value!!.itemId
-        val dateCreated = itemToUpdate.selected.value?.dateCreated ?: LocalDateTime.now()
-        updatedItem.itemId = itemId
-        updatedItem.dateCreated = dateCreated
-        itemsViewModel.updateItem(updatedItem)
+
+        itemToUpdate.selected.value?.let {
+            updatedItem.itemId = it.itemId
+            updatedItem.dateCreated = it.dateCreated
+
+            if (itemToUpdate.imageWasChanged) {
+                val oldImageFilenameToDelete = it.imageName
+                val categoryImageName = selectedCategory.selected.value?.imageName
+                itemsViewModel.updateItemWithImage(updatedItem, chosenImage, oldImageFilenameToDelete, categoryImageName)
+            } else {
+                updatedItem.imageName = it.imageName
+                itemsViewModel.updateItem(updatedItem)
+            }
+        }
     }
 }
