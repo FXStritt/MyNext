@@ -1,6 +1,7 @@
 package com.example.mynext.ui
 
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,6 +59,7 @@ class ItemAdapter(private val itemClickListener: ItemClickListener) :
             itemcard_description_tv.isEnabled = !itemDone
             itemcard_recommendedby_tv.isEnabled = !itemDone
             itemcard_dateadded_tv.isEnabled = !itemDone
+
             if (itemDone) {
                 itemcard_image_iv.setColorFilter(Color.argb(200, 200, 200, 200))
             } else {
@@ -75,6 +77,8 @@ class ItemAdapter(private val itemClickListener: ItemClickListener) :
         notifyDataSetChanged()
     }
 
-
+    fun deleteItem(position: Int) {
+        Log.d("MYTAG","Trigger Item deletion")
+    }
 
 }

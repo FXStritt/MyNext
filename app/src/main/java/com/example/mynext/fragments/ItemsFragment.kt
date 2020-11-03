@@ -1,13 +1,17 @@
 package com.example.mynext.fragments
 
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mynext.R
 import com.example.mynext.model.Item
@@ -16,6 +20,7 @@ import com.example.mynext.model.SelectedCategoryViewModel
 import com.example.mynext.model.SelectedItemViewModel
 import com.example.mynext.ui.ItemAdapter
 import com.example.mynext.ui.ItemDialogBuilder
+import com.example.mynext.ui.SwipeToDeleteCallback
 import kotlinx.android.synthetic.main.fragment_items.*
 
 
@@ -59,6 +64,15 @@ class ItemsFragment : Fragment(), ItemClickListener, ItemDialogCallback {
                 setHasFixedSize(true)
                 layoutManager = LinearLayoutManager(activity)
                 adapter = itemAdapter
+
+
+                val itemTouchHelper = ItemTouchHelper(
+                    SwipeToDeleteCallback(
+                        itemAdapter,
+                        ColorDrawable(ContextCompat.getColor(context, R.color.colorError)),
+                        ContextCompat.getDrawable(context,R.drawable.ic_baseline_delete_24)))
+
+                itemTouchHelper.attachToRecyclerView(this)
             }
 
             items_categorytitle_tv.text = category.title

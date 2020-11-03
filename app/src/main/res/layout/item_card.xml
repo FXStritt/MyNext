@@ -8,6 +8,7 @@
     app:cardUseCompatPadding="true">
 
     <RelativeLayout
+        android:id="@+id/itemcard_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
