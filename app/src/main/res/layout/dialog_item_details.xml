@@ -15,7 +15,8 @@
         android:layout_gravity="center_horizontal"
         android:text="@string/dummytext_itemcard_title"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_marginBottom="10dp"/>
 
     <ImageView
         android:id="@+id/itemdialog_image_iv"
@@ -24,7 +25,8 @@
         android:layout_gravity="center_horizontal"
         android:contentDescription="@string/contentdescr_itemcard_image"
         android:src="@drawable/book"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        android:layout_marginBottom="10dp"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/itemdialog_description_tv"
