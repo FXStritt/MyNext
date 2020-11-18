@@ -3,6 +3,7 @@ package com.example.mynext.ui
 import android.graphics.Canvas
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.util.Log
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
@@ -23,18 +24,11 @@ class SwipeToDeleteCallback(
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         val position = viewHolder.adapterPosition
-        mAdapter.deleteItem(position)
+        mAdapter.deleteItem(position) //TODO remove this once item is deleted from DB
     }
 
-    override fun onChildDraw(
-        c: Canvas,
-        recyclerView: RecyclerView,
-        viewHolder: RecyclerView.ViewHolder,
-        dX: Float,
-        dY: Float,
-        actionState: Int,
-        isCurrentlyActive: Boolean
-    ) {
+    override fun onChildDraw(c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder,
+                             dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean ) {
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
         val itemView = viewHolder.itemView
         val backgroundCornerOffset = 20 //used to push background behind the edge of the parent view to appear under rounded corners

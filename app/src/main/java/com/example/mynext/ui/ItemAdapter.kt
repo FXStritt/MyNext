@@ -1,13 +1,13 @@
 package com.example.mynext.ui
 
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mynext.R
 import com.example.mynext.fragments.ItemClickListener
+import com.example.mynext.fragments.ItemSwipeListener
 import com.example.mynext.model.Item
 import com.example.mynext.util.ImageHelper
 import kotlinx.android.synthetic.main.item_card.view.*
@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
 
-class ItemAdapter(private val itemClickListener: ItemClickListener) :
+class ItemAdapter(private val itemClickListener: ItemClickListener, private val itemSwipeListener: ItemSwipeListener) :
     RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
     private var items: MutableList<Item> = mutableListOf()
@@ -78,7 +78,6 @@ class ItemAdapter(private val itemClickListener: ItemClickListener) :
     }
 
     fun deleteItem(position: Int) {
-        Log.d("MYTAG","Trigger Item deletion")
+        itemSwipeListener.onItemSwipeToLeft(items[position])
     }
-
 }
