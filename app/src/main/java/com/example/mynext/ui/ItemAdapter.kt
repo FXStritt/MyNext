@@ -62,8 +62,10 @@ class ItemAdapter(private val itemClickListener: ItemClickListener, private val 
 
             if (itemDone) {
                 itemcard_image_iv.setColorFilter(Color.argb(200, 200, 200, 200))
+                itemcard_layout.setBackgroundResource(R.drawable.background_gray)
             } else {
                 itemcard_image_iv.clearColorFilter()
+                itemcard_layout.setBackgroundResource(R.drawable.background_accent)
             }
         }
     }

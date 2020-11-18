@@ -65,6 +65,7 @@ class ItemDialogBuilder(val context: Context, private val itemDialogCallback: It
                     )
                 )
                 itemdialog_markasdone_btn.setIconResource(R.drawable.ic_baseline_check_box_24)
+                item_dialog_layout.setBackgroundResource(R.drawable.background_gray)
             } else {
                 itemdialog_markasdone_btn.setBackgroundColor(
                     resources.getColor(
@@ -73,6 +74,7 @@ class ItemDialogBuilder(val context: Context, private val itemDialogCallback: It
                     )
                 )
                 itemdialog_markasdone_btn.setIconResource(R.drawable.ic_baseline_check_box_outline_blank_24)
+                item_dialog_layout.setBackgroundResource(R.drawable.background_accent)
             }
         }
     }
@@ -96,11 +98,13 @@ class ItemDialogBuilder(val context: Context, private val itemDialogCallback: It
                     item.done = false
                     setBackgroundColor(resources.getColor(R.color.colorAccent, context.theme))
                     setIconResource(R.drawable.ic_baseline_check_box_outline_blank_24)
+                    dialogView.item_dialog_layout.setBackgroundResource(R.drawable.background_accent)
                 } else {
                     item.done = true
                     item.dateDone = LocalDateTime.now()
                     setBackgroundColor(resources.getColor(R.color.colorDone, context.theme))
                     setIconResource(R.drawable.ic_baseline_check_box_24)
+                    dialogView.item_dialog_layout.setBackgroundResource(R.drawable.background_gray)
                 }
                 itemDialogCallback.updateItem(item)
 

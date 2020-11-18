@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp"
-        android:background="@drawable/background">
+        android:background="@drawable/background_accent">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/categorycard_title_tv"
