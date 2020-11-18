@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mynext.R
 import com.example.mynext.fragments.ItemClickListener
+import com.example.mynext.fragments.ItemSwipeListener
 import com.example.mynext.model.Item
 import com.example.mynext.util.ImageHelper
 import kotlinx.android.synthetic.main.item_card.view.*
@@ -14,7 +15,7 @@ import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
 
-class ItemAdapter(private val itemClickListener: ItemClickListener) :
+class ItemAdapter(private val itemClickListener: ItemClickListener, private val itemSwipeListener: ItemSwipeListener) :
     RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
     private var items: MutableList<Item> = mutableListOf()
@@ -58,6 +59,7 @@ class ItemAdapter(private val itemClickListener: ItemClickListener) :
             itemcard_description_tv.isEnabled = !itemDone
             itemcard_recommendedby_tv.isEnabled = !itemDone
             itemcard_dateadded_tv.isEnabled = !itemDone
+
             if (itemDone) {
                 itemcard_image_iv.setColorFilter(Color.argb(200, 200, 200, 200))
             } else {
@@ -75,6 +77,7 @@ class ItemAdapter(private val itemClickListener: ItemClickListener) :
         notifyDataSetChanged()
     }
 
-
-
+    fun deleteItem(position: Int) {
+        itemSwipeListener.onItemSwipeToLeft(items[position])
+    }
 }
