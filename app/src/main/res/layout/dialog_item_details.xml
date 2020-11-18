@@ -83,17 +83,6 @@
             app:iconPadding="0dp"
             style="@style/CKButton" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/itemdialog_delete_btn"
-            android:layout_width="52dp"
-            android:layout_height="52dp"
-            android:layout_margin="5dp"
-            app:icon="@drawable/ic_baseline_delete_24"
-            app:iconGravity="textStart"
-            app:iconPadding="0dp"
-            android:hint="@string/delete_item"
-            style="@style/CKButton"/>
-
     </LinearLayout>
 
 </LinearLayout>
